@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
+
+app.use(express.json());
 app.set('port', 3000);
 
 app.get('/', (req, res) => {
    console.log("GET request received");
-    res.sendFile(__dirname + '/index.html')
+   res.sendFile(__dirname + '/index.html')
 });
+app.post('/api/login', require('./backend/routes/api/login'));
 
 app.post('/login', (req, res) => {
    let username = req.body.username;
