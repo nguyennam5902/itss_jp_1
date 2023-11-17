@@ -1,6 +1,6 @@
 const express = require('express');
-const db = require('./backend/database/db');
-const wordAPI = require('./backend/routes/api/word');
+const db = require('./database/db');
+const wordAPI = require('./routes/api/word');
 const app = express();
 const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
 const Kuroshiro = require("kuroshiro")
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
    console.log("GET request received");
    res.sendFile(__dirname + '/index.html')
 });
-app.post('/api/login', require('./backend/routes/api/login'));
+app.post('/api/login', require('./routes/api/login'));
 
 // TODO
 app.get('/api/search/:word', async (req, res) => {
