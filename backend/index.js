@@ -25,10 +25,8 @@ app.get('/api/search/:word', async (req, res) => {
    const result = await wordAPI.search(romajiWord);
    res.send({
       data: result,
-      meta:{
-         'code': 200,
-         'message': 'OK'
-      }
+      status: 200,
+      message: 'OK'
    });
 })
 
