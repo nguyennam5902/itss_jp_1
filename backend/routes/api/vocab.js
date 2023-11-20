@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Vocab = require('../models/vocab'); // Đường dẫn đến model từ vựng
+const Vocab = require('../../models/vocab'); // Đường dẫn đến model từ vựng
 
 // Endpoint để lấy thông tin chi tiết của một từ vựng dựa trên ID
 router.get('/vocab/:id', async (req, res) => {
