@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const vocabSchema = new mongoose.Schema({
-    vocab_id: Number,
     hiragana: String,
     kanji: String,
     romaji: String,
