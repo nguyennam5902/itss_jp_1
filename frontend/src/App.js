@@ -9,9 +9,10 @@ import Learning_topic from './pages/Learning_topic.jsx';
 const App = () => {
   return (
     <BrowserRouter> 
-      <Header>
-      </Header>
+      
       <Sidebar>
+        <Header>
+        </Header>
         <Routes>
           <Route path = "/"element = {<Search/>} />
           <Route path = "/search"element = {<Search/>} />
