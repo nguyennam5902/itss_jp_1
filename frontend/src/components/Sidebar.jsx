@@ -21,7 +21,7 @@ const Sidebar = ({children}) => {
     },
   ]
   return (
-    <div className="container">
+    <div className="main_screen">
       <div className="sidebar">
         <div className="top_section">
           <h1 className="logo">Logo</h1>
