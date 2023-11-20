@@ -3,7 +3,8 @@ const db = require('./database/db');
 const wordAPI = require('./routes/api/word');
 const app = express();
 const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
-const Kuroshiro = require("kuroshiro")
+const Kuroshiro = require("kuroshiro");
+const router = require('./routes/api/vocab');
 const kuroshiro = new Kuroshiro();
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
@@ -12,10 +13,7 @@ db.connect();
 app.use(express.json());
 app.set('port', 9000);
 
-app.get('/', (req, res) => {
-   console.log("GET request received");
-   res.sendFile(__dirname + '/index.html')
-});
+app.use('/api', router);
 app.post('/api/login', require('./routes/api/login'));
 
 // TODO
