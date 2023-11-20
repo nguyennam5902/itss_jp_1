@@ -13,8 +13,8 @@ const Learning_topic = () => {
         <button class="bg-neutral-200 font-bold py-2 px-4 rounded text-sm ml-5 mt-5" onClick={backAction}>
             Back
         </button>
-        <div className = "m-10 bg-neutral-200 flex h-20 rounded-2xl justify-center items-center">
-          <h1 className="text-4xl font-bold">
+        <div className = "m-10 flex rounded-2xl justify-center items-center">
+          <h1 className="text-2xl font-bold">
             School
           </h1>
         </div>
@@ -29,6 +29,7 @@ const Learning_topic = () => {
             <Word/>
             <Word/>
         </div>
+        <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div>
     </div>
   )
 }
