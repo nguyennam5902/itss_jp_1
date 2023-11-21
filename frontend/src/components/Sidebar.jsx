@@ -1,23 +1,25 @@
 import React, { Children } from 'react'
 import { NavLink } from 'react-router-dom';
 import '../App.css'
-
+import SearchIcon from '../assets/icons/home.png'
+import ReviewIcon from '../assets/icons/review.png'
+import LearningIcon from '../assets/icons/learning.png'
 const Sidebar = ({children}) => {
   const menuItem = [
     {
       path: "/search",
       name: "Look up",
-      icon: "./assets/icons/home.png"
+      icon: SearchIcon
     },
     {
       path: "/review",
       name: "Vocabulary review",
-      icon: "./assets/icons/review.png"
+      icon: ReviewIcon
     },
     {
       path: "/learning",
       name: "Vocabulary learning",
-      icon: "./assets/icons/learning.png"
+      icon: LearningIcon
     },
   ]
   return (
