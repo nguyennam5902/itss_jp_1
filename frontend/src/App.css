@@ -16,11 +16,12 @@ body{
 .main_screen{
   display: flex;
   width: 100%;
-  /* background-color: rgba(248, 237, 227, 0.2);0 */
 }
 
 main{
   width: 100%;
+  overflow-y: auto;
+  max-height: 100%; /* Set the max-height to 100% of the parent container */
   /* padding: 20px; */
 }
 .sidebar{
