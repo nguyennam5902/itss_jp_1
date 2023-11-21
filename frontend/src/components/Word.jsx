@@ -33,7 +33,7 @@ const Word = () => {
         <h3 className="ml-4 mt-1 font-bold">Meaning: {word.mean}</h3>
         <div class="flex justify-between m-2">
             <button class="flex-left fit-content bg-lime-700 rounded-md">
-                <img src='./assets/icons/.png' alt="" />
+                {/* <img src='../assets/icons/.png' alt="" /> */}
                 <p class="text-left font-bold ml-2 text-sm"> + Add to list of favorite words</p>
             </button>
             <h2 className="flex text-right text-red-500 font-bold">Seen</h2>

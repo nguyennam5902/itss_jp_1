@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select';
-
+import SearchIcon from '../assets/icons/search.png'
 const SearchBar = ({onSearch}) => {
   const options = [
     { value: 'option1', label: 'School' },
@@ -21,7 +21,7 @@ const SearchBar = ({onSearch}) => {
         options={options}
         placeholder="Select an option"
       />
-      <button className="text-white p-2 rounded"><img src="./assets/icons/search.png" alt = "Search Button"/></button>
+      <button className="text-white p-2 rounded"><img src= 'SearchIcon' alt = "Search Button"/></button>
     </div>
   );
 }
