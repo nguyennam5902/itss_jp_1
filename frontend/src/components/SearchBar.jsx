@@ -1,4 +1,5 @@
 import React from 'react'
+import { search } from '../../../backend/routes/api/word';
 
 const SearchBar = ({onSearch}) => {
     return (
@@ -7,11 +8,11 @@ const SearchBar = ({onSearch}) => {
             type="text"
             placeholder="Search..."
             className="border p-2 rounded focus:outline-none focus:ring focus:border-blue-300"
-            onChange={(e) => onSearch(e.target.value)}
+            //onChange={(e) => search(e.target.value)}
           />
           <select
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
+            //value={selectedOption}
+            // onChange={(e) => search(e.target.value)}
           >
 
             <option value="option1">Type 1</option>
