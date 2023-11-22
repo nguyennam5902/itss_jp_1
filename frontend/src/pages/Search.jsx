@@ -11,7 +11,7 @@ const Search = () => {
       <div class="flex justify-left items-center h-full">
           <h2 class="text-sm font-bold ml-10">125 Results</h2>
       </div>
-      <div className="grid grid-cols-2 gap-4 m-10">
+      <div className="grid grid-cols-2 gap-4 m-4 overflow-x-auto">
             <Word/>
             <Word/>
             <Word/>

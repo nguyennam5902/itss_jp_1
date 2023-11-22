@@ -20,7 +20,7 @@ const Word = () => {
 
     
   return (
-    <div className= "h-[150px] bg-gray-200 rounded-2xl " onClick={handleTap}>
+    <div className= "h-[150px] bg-gray-200 rounded-[10px] shadow-md" onClick={handleTap}>
         <div class="flex mr-1 mt-2 justify-end">
             <div class="flex flex-col items-center bg-green-400 max-w-md rounded-md pr-1 pl-2">
                 <p class="text-center font-bold text-lg mt-2">{word.topic}</p>

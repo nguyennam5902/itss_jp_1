@@ -14,7 +14,7 @@ const Topic = () => {
     }
 
   return (
-    <div className="flex flex-col bg-white m-3 h-20 pl-2 rounded-xl hover:scale-105 transition-transform duration-300 ease-in-out " onClick={handleTap} >
+    <div className="flex flex-col bg-white m-3 h-20 pl-2 rounded-md hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl " onClick={handleTap} >
       <h3 className="flex-shrink-0 font-bold mt-0">{topic.id}. {topic.name}</h3>
       <div className="flex-grow"></div>
       <h4 className="flex-shrink-0 font-bold text-red-500 text-sm mb-0">Completed percentage: {topic.percentage}</h4>
