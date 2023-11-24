@@ -1,9 +1,12 @@
-export const Lookup = {
-    icon: "./assets/icons/home.png",
-} ;
-export const Learning ={
-    icon : "./assets/icons/learning.png",
+import SearchIcon from '../assets/icons/home.png';
+import ReviewIcon from '../assets/icons/review.png';
+import LearningIcon from '../assets/icons/learning.png';
+import SearchIconButton from '../assets/icons/search.png'
+const icons = {
+  SearchIcon,
+  ReviewIcon,
+  LearningIcon,
+  SearchIconButton
 };
-export const Review ={
-   icon:  "./assets/icons/review.png",
-};
+
+export default icons;
