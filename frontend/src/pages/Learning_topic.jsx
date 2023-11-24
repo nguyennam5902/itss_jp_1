@@ -18,10 +18,7 @@ const Learning_topic = () => {
             School
           </h1>
         </div>
-        <div className="grid grid-cols-2 gap-4 m-10 h-[65vh] overflow-y-auto">
-            <Word/>
-            <Word/>
-            <Word/>
+        <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">
             <Word/>
             <Word/>
             <Word/>

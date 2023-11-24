@@ -8,7 +8,7 @@ const Learning = () => {
           <SearchBar/>
         </div>
         
-        <div className='flex mt-4 overflow-x-auto'>
+        <div className='flex mt-1 overflow-x-auto'>
           <div className='w-fit h-fit m-4'>
             <h2 className="font-bold text-center mt-2 text-[20px]"> Most recently</h2>
             <div className="bg-neutral-100 h-[60vh] w-[300px] m-4 rounded-md shadow-lg overflow-y-auto">

@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select';
-import SearchIcon from '../assets/icons/search.png'
+import icons from '../consts/const';
 const SearchBar = ({onSearch}) => {
   const options = [
     { value: 'option1', label: 'School' },
@@ -12,7 +12,7 @@ const SearchBar = ({onSearch}) => {
   return (
     <div className="flex items-center space-x-1 h-10">
       <div className="flex items-center space-x-0 border rounded-[25px] w-full h-full ">
-        <button className="text-white p-2 rounded"><img src= {SearchIcon} alt = "Search Button"/></button>
+        <button className="text-white p-2 w-[50px] h-[50px] rounded"><img src= {icons.SearchIconButton} alt = "Search Button"/></button>
         <input
           type="text"
           placeholder="Search..."

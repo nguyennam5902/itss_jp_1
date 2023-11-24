@@ -20,19 +20,24 @@ const Word = () => {
 
     
   return (
-    <div className= "h-[150px] bg-gray-200 rounded-[10px] shadow-md" onClick={handleTap}>
-        <div class="flex mr-1 mt-2 justify-end">
-            <div class="flex flex-col items-center bg-green-400 max-w-md rounded-md pr-1 pl-2">
-                <p class="text-center font-bold text-lg mt-2">{word.topic}</p>
+    <div className= " flex-col justify-between h-[150px] rounded-[10px] shadow-lg border border-gray-100 flex" onClick={handleTap}>
+        <div class="flex justify-between">
+            <div className="flex-grow justify-start">
+                <h3 className="ml-4 mt-3 font-bold">{word.kanji}({word.hira})</h3>
+                <h3 className="ml-4 mt-1 font-bold">Meaning: {word.mean}</h3>
             </div>
-            <div class="flex flex-col items-center ml-2 bg-blue-300 max-w-md rounded-md pr-1 pl-2">
-                <p class="text-center font-bold text-lg mt-2">{word.type}</p>
+            <div className="flex mr-1 mt-2 justify-end">
+                <div class="flex flex-col items-center bg-orange-100 max-w-md h-fit rounded-md pr-1 pl-2">
+                    <span class="text-center font-bold text-lg m-1">{word.topic}</span>
+                </div>
+                <div class="flex flex-col items-center ml-2 bg-blue-300 max-w-md h-fit rounded-md pr-1 pl-2">
+                    <span class="text-center font-bold text-lg m-1">{word.type}</span>
+                </div>
             </div>
         </div>
-        <h3 className="ml-4 mt-3 font-bold">{word.kanji}({word.hira})</h3>
-        <h3 className="ml-4 mt-1 font-bold">Meaning: {word.mean}</h3>
+        
         <div class="flex justify-between m-2">
-            <button class="flex-left fit-content bg-lime-700 rounded-md">
+            <button class="flex-left fit-content bg-orange-200 rounded-md">
                 {/* <img src='../assets/icons/.png' alt="" /> */}
                 <p class="text-left font-bold ml-2 text-sm"> + Add to list of favorite words</p>
             </button>
