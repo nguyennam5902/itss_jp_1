@@ -1,14 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import Word from '../components/Word'
 import image from '../assets/images/word_image.png'
 import RelatedWords from '../components/RelatedWords'
 import Comment from '../components/Comment'
+import icons from '../consts/const'
 const Word_detail = () => {
   const navigate = useNavigate()
   const backAction = () => {
     navigate(-1)
   }
+
+  const [isClicked, setIsClicked] = useState(false);
+
+  const bookmarkTapped = () => {
+    setIsClicked(!isClicked);
+    console.log(isClicked)
+  };
 
   const word = {
     id: 1,
@@ -38,10 +46,15 @@ const Word_detail = () => {
             <RelatedWords type = {1}/>
             <RelatedWords type = {0}/>
             {/* <div class="flex justify-between m-2"> */}
-              <button class="flex-bottom fit-content bg-orange-200 rounded-md justify-end mt-4">
-                  {/* <img src='../assets/icons/.png' alt="" /> */}
-                  <p class="text-left font-bold ml-2 text-sm"> + Add to list of favorite words</p>
-              </button>
+            <button className={`flex-bottom mt-4 fit-content bg-${isClicked ? "grey" : "orange"}-200 shadow-lg rounded-md active:bg-${isClicked ? "grey" : "orange"}-200`}
+                onClick={bookmarkTapped}>
+            {/* <img src='../assets/icons/.png' alt="" /> */}
+                <p className="text-left font-bold ml-2 text-sm">
+                    {isClicked
+                    ? '- Remove from list of favorite words'
+                    : '+ Add to list of favorite words'}
+                </p>
+            </button>
           {/* </div> */}
           </div>
           <div className="flex-grow  m-5 w-2/5">
@@ -78,7 +91,7 @@ const Word_detail = () => {
               className="border p-2 m-1 rounded focus:outline-none focus:ring focus:border-blue-300 w-[500px]"
               // onChange={(e) => onSearch(e.target.value)}
             />
-            <button className="text-white p-2 rounded"><img src="" alt = ""/></button>
+            <button className="text-white p-2 rounded"><img src={icons.SendIcon} alt = ""/></button>
           </div>
         </div>
 

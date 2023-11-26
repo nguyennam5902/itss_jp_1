@@ -14,7 +14,7 @@ const Comment = () => {
             <h2 class="font-bold">{comment.username}</h2>
             <p class="text-sm">{comment.time}</p>
         </div>
-        <div class="flex-1 items-center bg-white rounded-md shadow-md ml-2 p-4">
+        <div class="flex-1 items-center bg-white rounded-md shadow-md border border-gray-100 ml-2 p-4">
             <p className="text-base">{comment.content}</p>
         </div>
     </div>
