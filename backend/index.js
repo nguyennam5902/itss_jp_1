@@ -5,6 +5,7 @@ const app = express();
 const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
 const Kuroshiro = require("kuroshiro");
 const router = require('./routes/api/vocab');
+const WordRequest = require('./models/word_request');
 const kuroshiro = new Kuroshiro();
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
@@ -17,9 +18,10 @@ app.use('/api', router);
 app.post('/api/login', require('./routes/api/login'));
 
 // TODO
-app.get('/api/search/:word', async (req, res) => {
+app.get('/api/search/word/:word', async (req, res) => {
    const word = String(req.params.word);
    const romajiWord = await kuroshiro.convert(word, { to: "romaji" });
+   console.log(`search: ${romajiWord}`);
    const result = await wordAPI.search(romajiWord);
    res.send({
       data: result,
@@ -39,7 +41,29 @@ app.post('/login', (req, res) => {
    } else {
       res.send({ code: -1, msg: "failure", data: "" });
    }
+});
+
+app.post('/api/admin/word/', async (req, res) => {
+   const requestID = String(req.body.requestID);
+   const wr = WordRequest.findById(requestID).exec();
+   if (wr != null) {
+
+   } else {
+      res.send({
+         data: null,
+         status: 404,
+         message: 'Request not found'
+      });
+   }
+});
+app.put('/api/admin/word/', (req, res) => {
+   const word = req.body.word;
+
 })
+app.delete('/api/admin/word/', (req, res) => {
+
+})
+
 
 app.listen(app.get('port'), () => {
    console.log(`Node app is running on port ${app.get('port')}`);
