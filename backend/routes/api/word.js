@@ -1,10 +1,4 @@
 const Vocab = require('../../models/vocab')
-const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
-const Kuroshiro = require("kuroshiro")
-const kuroshiro = new Kuroshiro();
-
-kuroshiro.init(new KuromojiAnalyzer()).then(console.log('ENGINE STARTED'));
-
 /**
  * Find all words start with `anotherWord`
  * @param {String} searchWord 

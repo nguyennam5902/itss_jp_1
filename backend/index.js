@@ -28,6 +28,24 @@ app.get('/api/search/word/:word', async (req, res) => {
       status: 200,
       message: 'OK'
    });
+});
+app.get('/api/search/topic/:topic', async (req, res) => {
+   const topic = String(req.params.topic);
+   const romajiTopic = await kuroshiro.convert(topic, { to: "romaji" });
+   const result = await require('./routes/api/topic')(romajiTopic);
+   res.send({
+      data: result,
+      status: 200,
+      message: 'OK'
+   });
+})
+app.get('/api/search/topic/', async (req, res) => {
+   const result = await require('./routes/api/topic')("");
+   res.send({
+      data: result,
+      status: 200,
+      message: 'OK'
+   });
 })
 
 // Do later
