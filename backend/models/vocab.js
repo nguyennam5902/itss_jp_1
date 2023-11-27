@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 
 const vocabSchema = new mongoose.Schema({
     hiragana: String,
+    katakana: String,
     kanji: String,
     romaji: String,
-    synonym_id: [Number],
-    antonym_id: [Number],
-    topic_id: Number,
+    synonym_id: [mongoose.Types.ObjectId],
+    antonym_id: [mongoose.Types.ObjectId],
+    topic_id: mongoose.Types.ObjectId,
+    type: String,
     meaning: String,
     example: String,
     example_meaning: String,
