@@ -1,4 +1,5 @@
-const Topic = require('../../models/topic')
+const Topic = require('../../models/topic');
+const Vocab = require('../../models/vocab');
 /**
  * Find all words start with `anotherWord`
  * @param {String} searchWord 
@@ -14,4 +15,12 @@ const topic = async function (searchWord) {
    }
    return result;
 }
-module.exports = topic;
+const detail = async (topicID) => {
+   const result = [];
+   const words = (await Vocab.find({ topic_id: topicID }).exec());
+   for (let i = 0; i < words.length; i++) {
+      result.push(words[i]._id.toString());
+   }
+   return result;
+}
+module.exports = { topic, detail };
