@@ -6,6 +6,8 @@ const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
 const Kuroshiro = require("kuroshiro");
 const router = require('./routes/api/vocab');
 const WordRequest = require('./models/word_request');
+const Bookmark = require('./models/bookmark');
+const { default: mongoose } = require('mongoose');
 const kuroshiro = new Kuroshiro();
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
@@ -56,6 +58,49 @@ app.get('/api/topic/:topicID', async (req, res) => {
       status: 200,
       message: 'OK'
    })
+})
+app.get('api/bookmark/', async (req, res) => {
+   let user = req.session.user;
+   const bookmark = await Bookmark.findOne({ user_id: user }).exec();
+   if (!bookmark) return res.status(401).send();
+   else {
+      res.send({
+         data: bookmark.vocab_marked,
+         status: 200,
+         message: 'OK'
+      });
+   }
+})
+app.post('api/bookmark/:wordID', async (req, res) => {
+   let user = req.session.user;
+   let wordID = req.params.wordID;
+   const bookmark = await Bookmark.findOne({ user_id: user }).exec();
+   if (!bookmark) return res.status(401).send();
+   else {
+      bookmark.vocab_marked.push(new mongoose.Types.ObjectId(wordID));
+      bookmark.save().then(console.log('ADDED'));
+      res.send({
+         data: null,
+         status: 200,
+         message: 'OK'
+      });
+   }
+})
+app.delete('api/bookmark/:wordID', async (req, res) => {
+   let user = req.session.user;
+   let wordID = req.params.wordID;
+   const bookmark = await Bookmark.findOne({ user_id: user }).exec();
+   if (!bookmark) return res.status(401).send();
+   else {
+      const index = bookmark.vocab_marked.indexOf(new mongoose.Types.ObjectId(wordID));
+      bookmark.vocab_marked.splice(index, 1);
+      bookmark.save().then(console.log('DELETED'));
+      res.send({
+         data: null,
+         status: 200,
+         message: 'OK'
+      });
+   }
 })
 
 // Do later
