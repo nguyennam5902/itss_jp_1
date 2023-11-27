@@ -1,4 +1,4 @@
-const Word = require('../../models/word')
+const Vocab = require('../../models/vocab')
 const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
 const Kuroshiro = require("kuroshiro")
 const kuroshiro = new Kuroshiro();
@@ -11,16 +11,13 @@ kuroshiro.init(new KuromojiAnalyzer()).then(console.log('ENGINE STARTED'));
  * @returns 
  */
 const search = async function (searchWord) {
-   const words = await Word.find().exec();
+   const regex = new RegExp(searchWord, 'i');
+   const words = await Vocab.find({ romaji: regex }).limit(10).exec();
+   console.log(words);
    const result = [];
    for (let i = 0; i < words.length; i++) {
-      const wordData = String(await kuroshiro.convert(words[i].word, { to: "romaji" }));
-      if (wordData.includes(searchWord)) {
-         result.push(words[i]);
-      }
+      result.push(words[i]._id.toString());
    }
-   // console.log(result);
-   // console.log(searchWord);
    return result;
 }
 module.exports = { search };
