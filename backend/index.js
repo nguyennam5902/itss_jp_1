@@ -62,7 +62,13 @@ app.get('/api/topic/:topicID', async (req, res) => {
 app.get('api/bookmark/', async (req, res) => {
    let user = req.session.user;
    const bookmark = await Bookmark.findOne({ user_id: user }).exec();
-   if (!bookmark) return res.status(401).send();
+   if (!bookmark) {
+      const newBookmark = new Bookmark({
+         user_id: user,
+         vocab_marked: []
+      });
+      newBookmark.save().then(console.log('BOOKMARK CREATED!'))
+   }
    else {
       res.send({
          data: bookmark.vocab_marked,
