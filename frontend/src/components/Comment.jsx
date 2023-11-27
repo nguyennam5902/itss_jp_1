@@ -1,13 +1,10 @@
 import React from 'react'
 
-const Comment = () => {
-    const comment = {
-        id: 1,
-        content: "This is so good",
-        time: "2h ago",
-        username: "Luong"
-    }
-  return (
+const Comment = (props) => {
+
+    const comment = props.comment
+
+    return (
     <div class="flex items-center h-fit w-full">
         <div class="flex flex-col justify-center items-center rounded-md">
             <img src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png" alt="Circle icon" class="w-[50px] h-[50px]"/>

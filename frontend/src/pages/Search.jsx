@@ -14,14 +14,12 @@ const Search = () => {
   }
   const [listResult, setListResult] = useState([])
 
-  // setListResult((prevListResult) => [...prevListResult, word])
   // handle search input
   const handleSearch = (searchTerm) =>{
       console.log(`Looking for: ${searchTerm}`)
       setListResult((prevListResult) => [...prevListResult, word])
   }
   
-
   // useEffect(() =>{
   //   console.log('UseEffect has been called!');
   //   setListResult(listResult.push(Word))

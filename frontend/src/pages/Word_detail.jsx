@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import Word from '../components/Word'
 import image from '../assets/images/word_image.png'
@@ -30,6 +30,23 @@ const Word_detail = () => {
     status : 1
   }
 
+  const comments = [
+    {
+      id: 1,
+      content: "This is so good",
+      time: "2h ago",
+      username: "Luong"
+    },
+    {
+      id: 2,
+      content: "This is not really good",
+      time: "2h ago",
+      username: "Nam"
+    }
+  ]
+
+
+
   return (
     <div className="w-full h-full">
       <button class="bg-neutral-200 font-bold py-2 px-4 rounded text-sm ml-5 mt-5" onClick={backAction}>
@@ -46,7 +63,7 @@ const Word_detail = () => {
             <RelatedWords type = {1}/>
             <RelatedWords type = {0}/>
             {/* <div class="flex justify-between m-2"> */}
-            <button className={`flex-bottom mt-4 fit-content bg-${isClicked ? "grey" : "orange"}-200 shadow-lg rounded-md active:bg-${isClicked ? "grey" : "orange"}-200`}
+            <button className={`flex-bottom mt-4 fit-content bg-${isClicked ? "[#000000]" : "orange"}-200 shadow-lg rounded-md active:bg-${isClicked ? "grey" : "orange"}-200`}
                 onClick={bookmarkTapped}>
             {/* <img src='../assets/icons/.png' alt="" /> */}
                 <p className="text-left font-bold ml-2 text-sm">
@@ -75,19 +92,14 @@ const Word_detail = () => {
         </div>
         <div className="flex flex-col justify-between w-1/3 mt-2 mr-2 ml-2 mb-4 rounded-[10px] shadow-lg border border-gray-100 ">
           <div className="w-full max-h-[75vh] rounded-2xl overflow-y-auto p-2">
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
+              { comments.map((comment,index) => (
+                <Comment comment = {comment}  key = {index} />
+              ))}
           </div>
           <div className="flex items-center space-x-0 ">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Comment..."
               className="border p-2 m-1 rounded focus:outline-none focus:ring focus:border-blue-300 w-[500px]"
               // onChange={(e) => onSearch(e.target.value)}
             />

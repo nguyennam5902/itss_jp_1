@@ -8,14 +8,14 @@ const Word = (word_detail) => {
 
     const bookmarkTapped = () => {
         setIsClicked(!isClicked)
-        console.log(isClicked)
+        // console.log(isClicked)
     };
 
     const word = word_detail.word
 
     //navigate to detail word page
-    const handleTap = (id) => {
-        navigate(`/search/words/${id}`)
+    const handleTap = () => {
+        navigate(`words/${word.id}`)
     }
 
     return (
