@@ -20,6 +20,8 @@ app.use('/api', router);
 app.post('/api/login', require('./routes/api/login'));
 
 // TODO
+app.get('/api/words/', wordAPI.all);
+
 app.get('/api/search/word/:word', async (req, res) => {
    const word = String(req.params.word);
    const romajiWord = await kuroshiro.convert(word, { to: "romaji" });
