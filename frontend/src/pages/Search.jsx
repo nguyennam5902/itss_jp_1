@@ -2,28 +2,39 @@ import React, {useState, useEffect} from 'react'
 import SearchBar from '../components/SearchBar'
 import Word from '../components/Word'
 import {Pagination} from 'antd'
+import commonRoute from '../consts/api'
+
 const Search = () => {
-  const word = {
-    id: 1,
-    kanji : "漢字",
-    hira : "かんじ",
-    mean : "Chu kanji",
-    type : "Noun",
-    topic : "School",
-    status : 1
-  }
+  // const word = {
+  //   id: 1,
+  //   kanji : "漢字",
+  //   hira : "かんじ",
+  //   mean : "Chu kanji",
+  //   type : "Noun",
+  //   topic : "School",
+  //   status : 1
+  // }
   const [listResult, setListResult] = useState([])
 
   // handle search input
-  const handleSearch = (searchTerm) =>{
+  const handleSearch = async (searchTerm) =>{
       console.log(`Looking for: ${searchTerm}`)
-      setListResult((prevListResult) => [...prevListResult, word])
+        try {
+          const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
+          const result = await response.json();
+          setListResult(result.data);
+          console.log(result.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          // setLoading(false);
+        }
   }
   
-  // useEffect(() =>{
-  //   console.log('UseEffect has been called!');
-  //   setListResult(listResult.push(Word))
-  // })
+  //fetch api
+  useEffect(() =>{
+    handleSearch();
+  },[])
 
   return (
     <div className="w-full">
@@ -33,15 +44,17 @@ const Search = () => {
       <div className="flex justify-left items-center h-full">
           <h2 className="text-sm font-bold ml-10">{listResult.length} Results</h2>
       </div>
+      
       <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">
         { listResult.map((word,index) => (
           <Word word = {word}  key = {index} />
         ))}
       </div>
-      <div className='flex justify-center'>
-        <Pagination defaultCurrent={1} total={50} />
-      </div>
-      
+      {listResult.length > 6 ? (
+        <div className='flex justify-center'>
+          <Pagination defaultCurrent={1} total={50} />
+        </div>
+      ) : null}
     </div>
   )
 }
