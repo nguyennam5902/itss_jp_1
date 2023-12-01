@@ -14,4 +14,12 @@ const search = async function (searchWord) {
    }
    return result;
 }
-module.exports = { search };
+const all = async (req, res) => {
+   const words = await Vocab.find({}).exec();
+   res.send({
+      data: words,
+      status: 200,
+      message: 'OK'
+   })
+};
+module.exports = { search, all };
