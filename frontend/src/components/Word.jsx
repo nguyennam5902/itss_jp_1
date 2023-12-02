@@ -1,34 +1,33 @@
 import React ,{useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import {Tag} from 'antd'
 const Word = (word_detail) => {
     const navigate = useNavigate()
-
     const [isClicked, setIsClicked] = useState(false);
-
-    const bookmarkTapped = () => {
-        setIsClicked(!isClicked)
-        // console.log(isClicked)
-    };
-
+    const bookmarkTapped = () => {setIsClicked(!isClicked)};
     const word = word_detail.word
 
     //navigate to detail word page
     const handleTap = () => {
-        navigate(`words/${word.id}`)
+        navigate(`words/${word._id}`)
     }
-
+    
     return (
     <div className= " flex-col justify-between h-[150px] rounded-[10px] shadow-lg border border-gray-100 flex" >
         <div className="flex justify-between" onClick={handleTap}>
             <div className="flex-grow justify-start">
-                <h3 className="ml-4 mt-3 font-bold">{word.kanji}({word.hira})</h3>
-                <h3 className="ml-4 mt-1 font-bold">Meaning: {word.mean}</h3>
+                {word.kanji != "" 
+                    ? <h3 className="ml-4 mt-3 font-bold">{word.kanji}({word.hiragana})</h3>
+                    : <h3 className="ml-4 mt-3 font-bold">{word.katakana}</h3>
+                }
+                <h3 className="ml-4 mt-1 font-bold">Meaning: {word.meaning}</h3>
             </div>
             <div className="flex mr-1 mt-2 justify-end">
-                <div className="flex flex-col items-center bg-orange-100 max-w-md h-fit rounded-[4px] pr-1 pl-2">
-                    <span className="text-center font-bold text-sm m-1">{word.topic}</span>
-                </div>
+                {word.topic != null && (
+                    <div className="flex flex-col items-center bg-orange-100 max-w-md h-fit rounded-[4px] pr-1 pl-2">
+                        <span className="text-center font-bold text-sm m-1">{word.topic}</span>
+                    </div>
+                )}
                 <div className="flex flex-col items-center ml-2 bg-blue-300 max-w-md h-fit rounded-[4px] pr-1 pl-2">
                     <span className="text-center font-bold text-sm m-1">{word.type}</span>
                 </div>

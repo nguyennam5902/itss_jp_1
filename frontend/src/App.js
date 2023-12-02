@@ -19,9 +19,9 @@ const App = () => {
           <Route path = "/search"element = {<Search/>} />
           <Route path = "/learning"element = {<Learning/>} />
           <Route path = "/review"element = {<Review/>} />
-          <Route path = "/learning/learning_topic" element = {<Learning_topic/>}/>
-          <Route path = "search/words/:id" element = {<Word_detail/>}/>
-          <Route path = "/learning/learning_topic/words/:id" element = {<Word_detail/>}/>
+          <Route path = "/learning/learning_topic/:id" element = {<Learning_topic/>}/>
+          <Route path = "/search/words/:id" element = {<Word_detail/>}/>
+          <Route path = "/learning/learning_topic/:word_id/words/:id" element = {<Word_detail/>}/>
         </Routes>
       </Sidebar>
       

@@ -5,22 +5,16 @@ import {Pagination} from 'antd'
 import commonRoute from '../consts/api'
 
 const Search = () => {
-  // const word = {
-  //   id: 1,
-  //   kanji : "漢字",
-  //   hira : "かんじ",
-  //   mean : "Chu kanji",
-  //   type : "Noun",
-  //   topic : "School",
-  //   status : 1
-  // }
+
   const [listResult, setListResult] = useState([])
 
   // handle search input
   const handleSearch = async (searchTerm) =>{
       console.log(`Looking for: ${searchTerm}`)
         try {
+          // const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
           const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
+
           const result = await response.json();
           setListResult(result.data);
           console.log(result.data);
