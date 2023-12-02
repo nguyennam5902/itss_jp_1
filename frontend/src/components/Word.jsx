@@ -3,14 +3,8 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {Tag} from 'antd'
 const Word = (word_detail) => {
     const navigate = useNavigate()
-
     const [isClicked, setIsClicked] = useState(false);
-
-    const bookmarkTapped = () => {
-        setIsClicked(!isClicked)
-        // console.log(isClicked)
-    };
-
+    const bookmarkTapped = () => {setIsClicked(!isClicked)};
     const word = word_detail.word
 
     //navigate to detail word page
@@ -18,7 +12,6 @@ const Word = (word_detail) => {
         navigate(`words/${word._id}`)
     }
     
-
     return (
     <div className= " flex-col justify-between h-[150px] rounded-[10px] shadow-lg border border-gray-100 flex" >
         <div className="flex justify-between" onClick={handleTap}>
@@ -27,7 +20,6 @@ const Word = (word_detail) => {
                     ? <h3 className="ml-4 mt-3 font-bold">{word.kanji}({word.hiragana})</h3>
                     : <h3 className="ml-4 mt-3 font-bold">{word.katakana}</h3>
                 }
-                
                 <h3 className="ml-4 mt-1 font-bold">Meaning: {word.meaning}</h3>
             </div>
             <div className="flex mr-1 mt-2 justify-end">

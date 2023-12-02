@@ -9,10 +9,11 @@ const WordRequest = require('./models/word_request');
 const Bookmark = require('./models/bookmark');
 const { default: mongoose } = require('mongoose');
 const kuroshiro = new Kuroshiro();
+const cors = require('cors');
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
 db.connect();
-
+app.use(cors());
 app.use(express.json());
 app.set('port', 9000);
 
