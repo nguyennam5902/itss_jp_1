@@ -1,8 +1,45 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Topic from '../components/Topic';
 import SearchBar from '../components/SearchBar';
 import {Tag} from 'antd';
+import commonRoute from '../consts/api';
 const Learning = () => {
+
+  const allTopics = async () =>{
+    try {
+      const response = await fetch(`${commonRoute}search/topic/`);
+      const result = await response.json();
+      console.log(result.data)
+      return result.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    } finally {
+      // setLoading(false);
+    }
+  }
+
+  const [topics, setTopics] = useState(allTopics)
+  // handle search input
+  const handleSearchTopic = async (searchTerm) =>{
+    console.log(`Looking for: ${searchTerm}`)
+      try {
+        const response = await fetch(`${commonRoute}search/topic/${searchTerm}`);
+        const result = await response.json();
+        setTopics(result.data);
+        console.log(result.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        // setLoading(false);
+      }
+  }
+
+//fetch api
+useEffect(() =>{
+  handleSearchTopic();
+},[])
+
   return (
     <div className="w-full h-full">
         <div className="m-10">
@@ -22,6 +59,9 @@ const Learning = () => {
                 <Topic/>
                 <Topic/>
                 <Topic/>
+                { topics.map((topic,index) => (
+                  <Topic topic = {topic}  key = {index} />
+                ))}
             </div>
           </div>
           <div className='w-fit h-fit m-4'>
