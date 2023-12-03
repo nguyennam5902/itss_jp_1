@@ -7,6 +7,10 @@ import Review from './pages/Review.jsx';
 import Header from './components/Header.jsx';
 import Learning_topic from './pages/Learning_topic.jsx';
 import Word_detail from './pages/Word_detail.jsx';
+
+import Vocabulary from './pages/admin/Vocabulary.jsx';
+import ApproveComments from './pages/admin/ApproveComments.jsx';
+
 const App = () => {
   return (
     <BrowserRouter> 
@@ -22,12 +26,13 @@ const App = () => {
           <Route path = "/learning/learning_topic/:id" element = {<Learning_topic/>}/>
           <Route path = "/search/words/:id" element = {<Word_detail/>}/>
           <Route path = "/learning/learning_topic/:word_id/words/:id" element = {<Word_detail/>}/>
+
+          {/* admin page */}
+          <Route path = "admin/vocabulary_manage" element = {<Vocabulary/>}/>
+          <Route path = "admin/approve_comments" element = {<ApproveComments/>}/>
+
         </Routes>
       </Sidebar>
-      
-      {/* <Routes>
-      <Route path = "/learning/learning_topic" element = {<Learning_topic/>}/>
-      </Routes> */}
     </BrowserRouter>
   );
 };
