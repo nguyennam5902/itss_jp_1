@@ -1,6 +1,6 @@
 const Vocab = require('../../models/vocab')
 /**
- * Find all words start with `anotherWord`
+ * Find all words start with `searchWord`
  * @param {String} searchWord 
  * @returns 
  */
