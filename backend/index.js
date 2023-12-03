@@ -8,6 +8,7 @@ const router = require('./routes/api/vocab');
 const WordRequest = require('./models/word_request');
 const Bookmark = require('./models/bookmark');
 const { default: mongoose } = require('mongoose');
+const Vocab = require('./models/vocab');
 const kuroshiro = new Kuroshiro();
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
@@ -125,24 +126,51 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/api/admin/word/', async (req, res) => {
-   const requestID = String(req.body.requestID);
-   const wr = WordRequest.findById(requestID).exec();
-   if (wr != null) {
-
-   } else {
+   //TODO
+});
+app.put('/api/admin/word/:wordID', async (req, res) => {
+   console.log(req.body);
+   const wordID = req.params.wordID;
+   const w = await Vocab.findById(wordID).exec();
+   if (w == null) {
       res.send({
          data: null,
          status: 404,
-         message: 'Request not found'
-      });
+         message: 'WORD NOT FOUND'
+      })
+   } else {
+      const hiragana = String(req.body.hiragana);
+      const katakana = String(req.body.katakana);
+      const kanji = String(req.body.kanji);
+      const romaji = String(req.body.romaji);
+      const type = String(req.body.type);
+      const meaning = String(req.body.meaning);
+      const example = String(req.body.example);
+      const example_meaning = String(req.body.example_meaning);
+      w.hiragana = hiragana;
+      w.katakana = katakana;
+      w.kanji = kanji;
+      w.romaji = romaji;
+      w.type = type;
+      w.meaning = meaning;
+      w.example = example;
+      w.example_meaning = example_meaning;
+      w.save().then(console.log('UPDATED'));
+      res.send({
+         data: null,
+         status: 200,
+         message: 'OK'
+      })
    }
-});
-app.put('/api/admin/word/', (req, res) => {
-   const word = req.body.word;
-
 })
-app.delete('/api/admin/word/', (req, res) => {
-
+app.delete('/api/admin/word/:wordID', (req, res) => {
+   const wordID = req.params.wordID;
+   Vocab.findByIdAndDelete(wordID).exec().then(console.log('DELETED'));
+   res.send({
+      data: null,
+      status: 200,
+      message: 'OK'
+   })
 })
 
 
