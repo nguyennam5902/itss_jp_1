@@ -122,7 +122,7 @@ const ApproveComments = () => {
           </h1>
         </div>
         <div className="flex justify-left items-center h-full">
-            <h2 className="text-sm font-bold ml-10"> Results</h2>
+            <h2 className="text-sm font-bold ml-10">{data.length} New comments to approve</h2>
         </div>
         <div className="m-10 justify-center content-center overflow-x-auto">
           <Table dataSource={data} columns={columns} pagination = {false}  />
