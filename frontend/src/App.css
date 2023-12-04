@@ -102,7 +102,17 @@ main{
   float: right;
   color: #000;
 }
+.error {
+  border: 1px solid red;
+}
 
+.cancelButton {
+  background-color: red;
+}
+
+.doneButton {
+  background-color: green;
+}
 
 
 
