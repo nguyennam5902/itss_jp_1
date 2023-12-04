@@ -23,7 +23,7 @@ router.post('/vocab/:id/comments', async (req, res) => {
             return res.status(404).json({ message: 'Không tìm thấy từ vựng' });
         }
         const { user_id, comment_text } = req.body;
-        vocab.comments.push({ user_id, comment_text });
+        vocab.comments.push({ user_id, comment_text, is_accept: false });
         await vocab.save();
         res.status(201).json(vocab);
     } catch (err) {

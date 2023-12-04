@@ -173,7 +173,23 @@ app.delete('/api/admin/word/:wordID', (req, res) => {
       message: 'OK'
    })
 })
-
+app.put('/api/admin/word/:wordID/comments/:commentID', async (req, res) => {
+   const commentID = req.params.commentID;
+   const wordID = req.params.wordID;
+   const word = await Vocab.findById(wordID).exec();
+   for (let i = 0; i < word.comments.length; i++) {
+      if (String(word.comments[i]._id) === commentID) {
+         word.comments[i].is_accept = true;
+         break;
+      }
+   }
+   word.save().then(console.log('ACCEPT'));
+   res.send({
+      data: null,
+      status: 200,
+      message: 'OK'
+   })
+})
 
 app.listen(app.get('port'), () => {
    console.log(`Node app is running on port ${app.get('port')}`);
