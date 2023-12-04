@@ -9,8 +9,8 @@ const VocabularyManagement = () => {
     meaning: '',
     topic: '',
     example: '',
-    exampleRomaji: '',
-    exampleMeaning: ''
+    romaji_meaning: '',
+    example_meaning: ''
   });
 
   const [errorField, setErrorField] = useState(null);
@@ -96,22 +96,22 @@ const VocabularyManagement = () => {
           className={errorField === 'example' ? 'error' : ''}
         />
 
-        <label>exampleRomaji:</label>
+        <label>example_romaji:</label>
         <input
           type="text"
-          name="exampleRomaji"
-          value={formData.exampleRomaji}
+          name="example_romaji"
+          value={formData.example_romaji}
           onChange={handleInputChange}
-          className={errorField === 'exampleRomaji' ? 'error' : ''}
+          className={errorField === 'example_romaji' ? 'error' : ''}
         />
 
-        <label>exampleMeaning:</label>
+        <label>example_meaning:</label>
         <input
           type="text"
-          name="exampleMeaning"
-          value={formData.exampleMeaning}
+          name="example_meaning"
+          value={formData.example_meaning}
           onChange={handleInputChange}
-          className={errorField === 'exampleMeaning' ? 'error' : ''}
+          className={errorField === 'example_meaning' ? 'error' : ''}
         />
        
 
