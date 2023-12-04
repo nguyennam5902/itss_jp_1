@@ -10,7 +10,7 @@ import Word_detail from './pages/Word_detail.jsx';
 
 import Vocabulary from './pages/admin/Vocabulary.jsx';
 import ApproveComments from './pages/admin/ApproveComments.jsx';
-
+import Word from './pages/admin/Word.jsx';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -28,8 +28,9 @@ const App = () => {
           <Route path = "/learning/learning_topic/:word_id/words/:id" element = {<Word_detail/>}/>
 
           {/* admin page */}
-          <Route path = "admin/vocabulary_manage" element = {<Vocabulary/>}/>
+          <Route path = "admin/topic_manage" element = {<Vocabulary/>}/>
           <Route path = "admin/approve_comments" element = {<ApproveComments/>}/>
+          <Route path = "admin/topic_manage/:id" element = {<Word/>}/>
 
         </Routes>
       </Sidebar>

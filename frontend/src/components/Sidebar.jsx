@@ -32,7 +32,7 @@ const Sidebar = ({children}) => {
   
   const adminMenuItem = [
     {
-      path: "admin/vocabulary_manage",
+      path: "admin/topic_manage",
       name: "Vocabulary",
       icon: icons.LearningIcon
     },
