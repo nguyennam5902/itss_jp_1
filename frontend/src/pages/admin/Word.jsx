@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
-import { Table , Pagination, Button, Modal, Popconfirm  } from 'antd';
+import { Table , Pagination, Button, Modal, Popconfirm, Form  } from 'antd';
 import icons from '../../consts/const';
-import CreateWordForm from '../../components/admin/CreateWordForm';
+import EditWordForm from '../../components/admin/EditWordForm';
 import { useNavigate,useParams } from 'react-router-dom';
 import commonRoute from '../../consts/api';
 const Word = () => {
@@ -9,20 +9,9 @@ const Word = () => {
   const {id} = useParams()
   const [listWords, setListWords] = useState([])
   const [visible, setVisible] = useState(false);
+  const [editWord, setEditWord] = useState(null)
+  const [form] = Form.useForm();
 
-//   const dataSource = [
-//     {
-//       word_id: '1',
-//       kanji: '宿題',
-//       hiragana: 'しゅくだい',
-//       romaji: "shuukudai",
-//       meaning : 'Exercise',
-//       example : 'この宿題はとても難しいです',
-//       created_time: new Date().toLocaleTimeString(),
-//     },
-//   ];
-//   const [data, setData] = useState(dataSource)
-  
   const columns = [
     {
       title: <strong>Word ID</strong>,
@@ -62,9 +51,11 @@ const Word = () => {
         <Button 
           type="primary" 
           style={{ background: 'none', border: 'none' }} 
-          onClick={() =>
+          onClick={() => {
+            setEditWord(record)
+            console.log(record)
             showCreateModal()
-          }>
+          }}>
           <img src={icons.EditButton} alt="Button Image" style={{ height: '20px', width: '20px' }} />
         </Button>
       ),
@@ -78,9 +69,9 @@ const Word = () => {
         <Button 
             type="primary" 
             style={{ background: 'none', border: 'none' }} 
-            onClick={() =>
+            onClick={() =>{
                 handleButtonClick(record)
-            }
+            }}
         >
             <img src={icons.RemoveButton} alt="Button Image" style={{ height: '20px', width: '20px' }} />
         </Button>
@@ -88,20 +79,19 @@ const Word = () => {
     }
   ];
 
-  const showCreateModal = () => {
-    setVisible(true);
-  };
+    const showCreateModal = () => {
+        setVisible(true);
+    };
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
+    const handleCancel = () => {
+        setVisible(false);
+    };
 
-  const handleCreate = () => {
-    // Handle form submission logic here
-    setVisible(false);
-    alert('Add new word successful');
-    
-  };
+    const handleCreate = () => {
+        // Handle form submission logic here
+        setVisible(false);
+        alert('Edit word successfull');
+    };
   
   const handleButtonClick = (record) => {
     Modal.confirm({
@@ -130,7 +120,7 @@ const Word = () => {
   const handleDeleteWord = async(id) =>{
     try{
         const response = await fetch(`${commonRoute}admin/word/${id}`,{
-        method: 'DELETE',
+            method: 'DELETE',
         });
 
         if (!response.ok){
@@ -144,6 +134,7 @@ const Word = () => {
     //fetch api
   useEffect(() =>{
     handleGetWordByTopic(id);
+
   },)
 
   return (
@@ -165,20 +156,29 @@ const Word = () => {
             dataSource={listWords}
             columns={columns} 
             pagination = {false} 
-          />
+          >
+            
+          </Table>
           {/* <Pagination style={{ marginTop: '16px' }} defaultCurrent={1} total={50} pageSize={10} /> */}
+          {
+            editWord != null && (
+            <Modal
+                title="Edit this word"
+                open={visible}
+                onOk={handleCreate}
+                onCancel={handleCancel}
+                okText="Edit"
+                cancelText="Cancel"
+                okButtonProps={{ style: { background: 'blue', color: 'white' }}}
+                >
+                    {console.log(editWord)}
+                    <EditWordForm editWord = {editWord}/>       
+            </Modal>
+            )
+          }
+          
         </div>
-        <Modal
-            title="Edit this word"
-            open={visible}
-            onOk={handleCreate}
-            onCancel={handleCancel}
-            okText="Edit"
-            cancelText="Cancel"
-            okButtonProps={{ style: { background: 'blue', color: 'white' }}}
-        >
-            <CreateWordForm />
-        </Modal>
+        
     </div>
   )
 }
