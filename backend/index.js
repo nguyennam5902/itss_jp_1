@@ -127,7 +127,42 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/api/admin/word/', async (req, res) => {
-   //TODO
+   const hiragana = String(req.body.hiragana);
+   const katakana = String(req.body.katakana);
+   const kanji = String(req.body.kanji);
+   const romaji = String(req.body.romaji);
+   const type = String(req.body.type);
+   const meaning = String(req.body.meaning);
+   const example = String(req.body.example);
+   const example_meaning = String(req.body.example_meaning);
+   const synonym_id = [];
+   const tmp_synonym = req.body.synonym_id;
+   for (let i = 0; i < tmp_synonym.length; i++) {
+      synonym_id.push(new mongoose.Types.ObjectId(String(tmp_synonym[i])));
+   }
+   const tmp_antonym = req.body.antonym_id;
+   const antonym_id = [];
+   for (let i = 0; i < tmp_antonym.length; i++) {
+      antonym_id.push(new mongoose.Types.ObjectId(String(tmp_antonym[i])));
+   }
+   const newWord = new Vocab({
+      hiragana: hiragana,
+      katakana: katakana,
+      kanji: kanji,
+      romaji: romaji,
+      type: type,
+      meaning: meaning,
+      example: example,
+      example_meaning: example_meaning,
+      synonym_id: synonym_id,
+      antonym_id: antonym_id
+   });
+   newWord.save().then(console.log(`SAVED:${newWord._id.toString()}`));
+   res.send({
+      data: null,
+      status: 200,
+      message: 'OK'
+   })
 });
 app.put('/api/admin/word/:wordID', async (req, res) => {
    console.log(req.body);
@@ -173,7 +208,23 @@ app.delete('/api/admin/word/:wordID', (req, res) => {
       message: 'OK'
    })
 })
-
+app.put('/api/admin/word/:wordID/comments/:commentID', async (req, res) => {
+   const commentID = req.params.commentID;
+   const wordID = req.params.wordID;
+   const word = await Vocab.findById(wordID).exec();
+   for (let i = 0; i < word.comments.length; i++) {
+      if (String(word.comments[i]._id) === commentID) {
+         word.comments[i].is_accept = true;
+         break;
+      }
+   }
+   word.save().then(console.log('ACCEPT'));
+   res.send({
+      data: null,
+      status: 200,
+      message: 'OK'
+   })
+})
 
 app.listen(app.get('port'), () => {
    console.log(`Node app is running on port ${app.get('port')}`);

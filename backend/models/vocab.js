@@ -15,6 +15,7 @@ const vocabSchema = new mongoose.Schema({
     comments: [{
         user_id: String, // ID của người dùng
         comment_text: String,
+        is_accept: Boolean,
         created_at: {
             type: Date,
             default: Date.now
