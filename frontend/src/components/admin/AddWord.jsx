@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './VocabularyManagement.css'; // Import your CSS file
+import './App.css'; // Import your CSS file
 
-const VocabularyManagement = () => {
+const AddWord = () => {
   const [formData, setFormData] = useState({
     kanji: '',
     hiragana: '',
@@ -128,5 +128,5 @@ const VocabularyManagement = () => {
   );
 };
 
-export default VocabularyManagement;
+export default AddWord;
 
