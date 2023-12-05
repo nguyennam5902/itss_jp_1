@@ -65,8 +65,12 @@ const Vocabulary = () => {
         <Button 
           type="primary" 
           style={{ background: 'none', border: 'none' }} 
-          onClick={() =>
+          onClick={(e) =>{
+            e.preventDefault()
+            e.stopPropagation()
             showCreateModal()
+          }
+          
           }>
           <img src={icons.EditButton} alt="Button Image" style={{ height: '20px', width: '20px' }} />
         </Button>
@@ -81,8 +85,11 @@ const Vocabulary = () => {
         <Button 
           type="primary" 
           style={{ background: 'none', border: 'none' }} 
-          onClick={() =>
+          onClick={(e) =>{
+            e.preventDefault()
+            e.stopPropagation()
             handleButtonClick(record)
+          }
           }>
           <img src={icons.RemoveButton} alt="Button Image" style={{ height: '20px', width: '20px' }} />
         </Button>
@@ -176,7 +183,7 @@ const Vocabulary = () => {
             pagination = {false} 
             onRow={(record) => ({
               ...rowTapped(record),
-            })}  
+            })} 
           />
           {/* <Pagination style={{ marginTop: '16px' }} defaultCurrent={1} total={50} pageSize={10} /> */}
         </div>

@@ -134,8 +134,7 @@ const Word = () => {
     //fetch api
   useEffect(() =>{
     handleGetWordByTopic(id);
-
-  },)
+  },[id])
 
   return (
       <div className="w-full">
@@ -178,7 +177,6 @@ const Word = () => {
           }
           
         </div>
-        
     </div>
   )
 }

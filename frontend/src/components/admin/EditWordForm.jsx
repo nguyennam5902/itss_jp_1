@@ -6,12 +6,11 @@ import commonRoute from '../../consts/api';
 const { TextArea } = Input;
 
 const EditWordForm = (props)  => {
-    
-    console.log(props._id)
+    const editWord = props.editWord
     const onFinish = async (values) => {
         try {
-          // Example: Send a POST request using Fetch API
-          const response = await fetch(`${commonRoute}admin/word/${props._id}`, {
+          // Example: Send a PUT request using Fetch API
+          const response = await fetch(`${commonRoute}admin/word/${editWord._id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -22,16 +21,15 @@ const EditWordForm = (props)  => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
-    
           // Display a success message
           message.success('Data posted successfully');
+          console.log(values)
         } catch (error) {
           console.error('Error posting data:', error.message);
           // Display an error message
           message.error('Error posting data');
         }
       };
-
     
     return (
     <>
@@ -40,7 +38,7 @@ const EditWordForm = (props)  => {
           <Input />
         </Form.Item>
         <Form.Item label="Hiragana" name="hiragana">
-          <Input  />
+          <Input />
         </Form.Item>
         <Form.Item label="Romaji" name = "romaji">
           <Input/>
@@ -55,21 +53,21 @@ const EditWordForm = (props)  => {
             <Select.Option value="type">Adjective</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Topic" name = "topic">
+        {/* <Form.Item label="Topic" name = "topic">
           <Select>
             <Select.Option value="topic">School</Select.Option>
             <Select.Option value="topic">Company</Select.Option>
             <Select.Option value="topic">Book</Select.Option>
             <Select.Option value="topic">Network</Select.Option>
           </Select>
-        </Form.Item>
+        </Form.Item> */}
        
         <Form.Item label="Example" name = "example">
           <TextArea rows={2} />
         </Form.Item>
-        <Form.Item label="Example(Romaji)" name = "example_romaji">
+        {/* <Form.Item label="Example(Romaji)" name = "example_romaji">
           <TextArea rows={2} />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="Example(Meaning)" name = "example_meaning">
           <TextArea rows={2} />
         </Form.Item>
