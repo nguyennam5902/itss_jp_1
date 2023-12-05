@@ -1,42 +1,54 @@
 import React, { useState } from 'react';
-import './App.css'; // Import your CSS file
+import { useHistory } from 'react-router-dom';
 
 const AddWord = () => {
-  const [formData, setFormData] = useState({
-    kanji: '',
+  const history = useHistory();
+  const [formValues, setFormValues] = useState({
     hiragana: '',
+    katakana: '',
+    kanji: '',
     romaji: '',
+    type: '',
     meaning: '',
-    topic: '',
     example: '',
-    romaji_meaning: '',
-    example_meaning: ''
+    example_romaji: '',
+    example_meaning: '',
+    synonym_id: [],
+    antonym_id: []
   });
 
   const [errorField, setErrorField] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormValues({ ...formValues, [name]: value });
     setErrorField(null);
   };
 
   const handleCancel = () => {
-    // Handle cancel form and navigate back to the homepage
+    history.push('/');
   };
 
-  const handleDone = () => {
-    // Check if all fields are filled
-    const isFormValid = Object.values(formData).every((value) => value.trim() !== '');
+  const handleDone = async () => {
+    const isFormValid = Object.values(formValues).every((value) => value.trim() !== '');
 
     if (!isFormValid) {
-      // If any field is empty, set an error for the first empty field
-      const firstErrorField = Object.keys(formData).find((key) => formData[key].trim() === '');
+      const firstErrorField = Object.keys(formValues).find((key) => formValues[key].trim() === '');
       setErrorField(firstErrorField);
     } else {
-      // If all fields are filled, add the information to the database and navigate back to the homepage
-      // Handle adding information to the database
-      // Then navigate back to the homepage
+      const response = await fetch('/api/admin/word/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formValues),
+      });
+
+      if (response.ok) {
+        history.push('/');
+      } else {
+        console.error('Failed to add word to the database');
+      }
     }
   };
 
@@ -44,54 +56,64 @@ const AddWord = () => {
     <div>
       <h1>Add Word</h1>
       <form>
-        <label>Kanji:</label>
-        <input
-          type="text"
-          name="kanji"
-          value={formData.kanji}
-          onChange={handleInputChange}
-          className={errorField === 'kanji' ? 'error' : ''}
-        />
-
         <label>Hiragana:</label>
         <input
           type="text"
           name="hiragana"
-          value={formData.hiragana}
+          value={formValues.hiragana}
           onChange={handleInputChange}
           className={errorField === 'hiragana' ? 'error' : ''}
         />
+
+        <label>Katakana:</label>
+        <input
+          type="text"
+          name="katakana"
+          value={formValues.katakana}
+          onChange={handleInputChange}
+          className={errorField === 'katakana' ? 'error' : ''}
+        />
+        <label>Kanji:</label>
+        <input
+          type="text"
+          name="kanji"
+          value={formValues.kanji}
+          onChange={handleInputChange}
+          className={errorField === 'kanji' ? 'error' : ''}
+        />
+
         <label>Romaji:</label>
         <input
           type="text"
           name="romaji"
-          value={formData.romaji}
+          value={formValues.romaji}
           onChange={handleInputChange}
           className={errorField === 'romaji' ? 'error' : ''}
         />
-         <label>Meaning:</label>
+
+        <label>Type:</label>
+        <input
+          type="text"
+          name="type"
+          value={formValues.type}
+          onChange={handleInputChange}
+          className={errorField === 'type' ? 'error' : ''}
+        />
+
+        <label>Meaning:</label>
         <input
           type="text"
           name="meaning"
-          value={formData.meaning}
+          value={formValues.meaning}
           onChange={handleInputChange}
           className={errorField === 'meaning' ? 'error' : ''}
-        />
-
-        <label>Topic:</label>
-        <input
-          type="text"
-          name="topic"
-          value={formData.topic}
-          onChange={handleInputChange}
-          className={errorField === 'topic' ? 'error' : ''}
         />
 
         <label>Example:</label>
         <input
           type="text"
           name="example"
-          value={formData.example}
+          value={formValues.example}
           onChange={handleInputChange}
           className={errorField === 'example' ? 'error' : ''}
         />
@@ -100,21 +122,42 @@ const AddWord = () => {
         <input
           type="text"
           name="example_romaji"
-          value={formData.example_romaji}
+          value={formValues.example_romaji}
           onChange={handleInputChange}
           className={errorField === 'example_romaji' ? 'error' : ''}
         />
+
 
         <label>example_meaning:</label>
         <input
           type="text"
           name="example_meaning"
-          value={formData.example_meaning}
+          value={formValues.example_meaning}
           onChange={handleInputChange}
           className={errorField === 'example_meaning' ? 'error' : ''}
         />
-       
 
+         <label>synonym_id:</label>
+        <input
+          type="text"
+          name="synonym_id"
+          value={formValues.synonym_id}
+          onChange={handleInputChange}
+          className={errorField === 'synonym_id' ? 'error' : ''}
+        />
+
+        <label>antonym_id:</label>
+        <input
+          type="text"
+          name="antonym_id"
+          value={formValues.antonym_id}
+          onChange={handleInputChange}
+          className={errorField === 'antonym_id' ? 'error' : ''}
+        />
+
+        
+
+        
         <div>
           <button type="button" className="cancelButton" onClick={handleCancel}>
             Cancel
@@ -129,4 +172,3 @@ const AddWord = () => {
 };
 
 export default AddWord;
-
