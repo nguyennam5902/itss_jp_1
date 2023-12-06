@@ -5,14 +5,14 @@ import commonRoute from '../../consts/api';
 
 const { TextArea } = Input;
 
-const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
+const EditWordForm = ({editWord, visible, handleCreate, handleCancel})  => {
+    console.log(editWord)
     const onFinish = async (values) => {
         console.log('Received values:', values);
-        values.topic_id = topic._id
         try {
-          // Example: Send a POST request using Fetch API
-            const response = await fetch(`${commonRoute}admin/word/`, {
-                method: 'POST',
+          // Example: Send a PUT request using Fetch API
+            const response = await fetch(`${commonRoute}admin/word/${editWord._id}`, {
+                method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',
                 },
@@ -21,13 +21,20 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
     
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
-            }     
+            }
+            if(editWord != values){
+                // Display a success message
+                message.success('Edit word successfully');
+            }
         } catch (error) {
           console.error('Error posting data:', error.message);
           message.error('Edit word fail!');
         }
     };
 
+    useEffect(() =>{
+      },[editWord])
+    
     return (
         <Modal
             title="Edit this word"
@@ -39,7 +46,7 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
             okButtonProps={{ style: { background: 'blue', color: 'white' }}}
             footer = {null}
         >
-            <Form labelCol={{ span: 7,}} wrapperCol={{span: 14, }} layout="horizontal" style={{ maxWidth: 700,}}  onFinish={onFinish}>
+            <Form labelCol={{ span: 7,}} wrapperCol={{span: 14, }} layout="horizontal" style={{ maxWidth: 700,}} initialValues={editWord}  onFinish={onFinish}>
                 <Form.Item label="Kanji" name="kanji" rules={[{ required: true, message: 'Please input this field!' }]}>
                     <Input />
                 </Form.Item>
@@ -57,11 +64,12 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
                 </Form.Item>
                 <Form.Item label="Type" name = "type" rules={[{ required: true, message: 'Please input this field!' }]}>
                     <Select>
-                        <Select.Option value="noun">Noun</Select.Option>
-                        <Select.Option value="verd">Verd</Select.Option>
-                        <Select.Option value="adjective">Adjective</Select.Option>
+                        <Select.Option value="type">Noun</Select.Option>
+                        <Select.Option value="type">Verd</Select.Option>
+                        <Select.Option value="type">Adjective</Select.Option>
                     </Select>
                 </Form.Item>
+       
                 <Form.Item label="Example" name = "example" rules={[{ required: true, message: 'Please input this field!' }]}>
                     <TextArea rows={2} />
                 </Form.Item>
@@ -75,9 +83,10 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
                     <Button type="primary" htmlType="submit" onClick={handleCreate} className= "bg-blue-500 ml-8">
                         Submit
                     </Button>
+                    
                 </Form.Item>
             </Form>    
         </Modal>
   );
 };
-export default CreateWordForm;
+export default EditWordForm;
