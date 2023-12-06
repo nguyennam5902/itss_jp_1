@@ -136,15 +136,16 @@ app.post('/api/admin/word/', async (req, res) => {
    const example = String(req.body.example);
    const example_meaning = String(req.body.example_meaning);
    const synonym_id = [];
-   const tmp_synonym = req.body.synonym_id;
-   for (let i = 0; i < tmp_synonym.length; i++) {
-      synonym_id.push(new mongoose.Types.ObjectId(String(tmp_synonym[i])));
-   }
-   const tmp_antonym = req.body.antonym_id;
+   //const tmp_synonym = req.body.synonym_id;
+   // for (let i = 0; i < tmp_synonym.length; i++) {
+   //    synonym_id.push(new mongoose.Types.ObjectId(String(tmp_synonym[i])));
+   // }
+   //const tmp_antonym = req.body.antonym_id;
    const antonym_id = [];
-   for (let i = 0; i < tmp_antonym.length; i++) {
-      antonym_id.push(new mongoose.Types.ObjectId(String(tmp_antonym[i])));
-   }
+   // for (let i = 0; i < tmp_antonym.length; i++) {
+   //    antonym_id.push(new mongoose.Types.ObjectId(String(tmp_antonym[i])));
+   // }
+   const topic_id = String(req.body.topic_id)
    const newWord = new Vocab({
       hiragana: hiragana,
       katakana: katakana,
@@ -155,7 +156,8 @@ app.post('/api/admin/word/', async (req, res) => {
       example: example,
       example_meaning: example_meaning,
       synonym_id: synonym_id,
-      antonym_id: antonym_id
+      antonym_id: antonym_id,
+      topic_id: topic_id
    });
    newWord.save().then(console.log(`SAVED:${newWord._id.toString()}`));
    res.send({

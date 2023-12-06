@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Table , Pagination, Button, Modal  } from 'antd';
+import React, { useEffect, useState, useContext } from 'react'
+import { Table , Pagination, Button, Modal, message  } from 'antd';
 import icons from '../../consts/const';
 import CreateWordForm from '../../components/admin/CreateWordForm';
 import { useNavigate,useParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ const Vocabulary = () => {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false);
   const [topics, setTopics] = useState([])
+  const [nextPage, setNextPage] = useState(null);
   // const dataSource = [
   //   {
   //     topic_id: '1',
@@ -21,21 +22,18 @@ const Vocabulary = () => {
   //     total_vocabulary: 32,
   //     created_time: new Date().toLocaleTimeString(),
   //   },
-  //   {
-  //     topic_id: '3',
-  //     topic_name: 'School',
-  //     total_vocabulary: 32,
-  //     created_time: new Date().toLocaleTimeString(),
-  //   },
-  //   {
-  //     topic_id: '4',
-  //     topic_name: 'School',
-  //     total_vocabulary: 32,
-  //     created_time: new Date().toLocaleTimeString(),
-  //   },
   // ];
   // const [data, setData] = useState(dataSource)
   
+  const newData = {
+    id: "656954a74d1a8f73e4eb6c3a",
+    kanji: "友達",
+    hiragana: "ともだち",
+    romaji: "tomodachi",
+    meaning: "Friend",
+    example: "友達がたくさんいます",
+  }
+
   const columns = [
     {
       title: <strong>Topic ID</strong>,
@@ -47,16 +45,16 @@ const Vocabulary = () => {
       dataIndex: 'topic_name',
       key: 'topic_name',
     },
-    {
-      title: <strong>Total Vocabulary</strong>,
-      dataIndex: 'total_vocabulary',
-      key: 'total_vocabulary',
-    },
-    {
-      title: <strong>Created Time</strong>,
-      dataIndex: 'created_time',
-      key: 'created_time',
-    },
+    // {
+    //   title: <strong>Total Vocabulary</strong>,
+    //   dataIndex: 'total_vocabulary',
+    //   key: 'total_vocabulary',
+    // },
+    // {
+    //   title: <strong>Created Time</strong>,
+    //   dataIndex: 'created_time',
+    //   key: 'created_time',
+    // },
     {
       title: <strong>Create new word</strong>,
       dataIndex: 'create_new_word',
@@ -68,6 +66,7 @@ const Vocabulary = () => {
           onClick={(e) =>{
             e.preventDefault()
             e.stopPropagation()
+            setNextPage(record);
             showCreateModal()
           }
           
@@ -96,7 +95,6 @@ const Vocabulary = () => {
       ),
     }
   ];
-
   
 
   const showCreateModal = () => {
@@ -105,12 +103,14 @@ const Vocabulary = () => {
 
   const handleCancel = () => {
     setVisible(false);
+    
   };
 
   const handleCreate = () => {
     // Handle form submission logic here
-    alert('Add new word successful');
     setVisible(false);
+    message.success('Create new word successfully');
+    // navigate(`/admin/topic_manage/${nextPage._id}`);
   };
   
   const handleButtonClick = (record) => {
@@ -126,7 +126,6 @@ const Vocabulary = () => {
     if (topics && topics.length > 0) {
       const updatedData = topics.filter((item) => item._id !== id);
       setTopics(updatedData);
-      console.log(updatedData);
     }
   };
 
@@ -185,19 +184,9 @@ const Vocabulary = () => {
               ...rowTapped(record),
             })} 
           />
+          <CreateWordForm visible={visible} topic={nextPage} handleCreate = {handleCreate} handleCancel = {handleCancel} />
           {/* <Pagination style={{ marginTop: '16px' }} defaultCurrent={1} total={50} pageSize={10} /> */}
         </div>
-          <Modal
-            title="Create a new word"
-            open={visible}
-            onOk={handleCreate}
-            onCancel={handleCancel}
-            okText="Create"
-            cancelText="Cancel"
-            okButtonProps={{ style: { background: 'blue', color: 'white' }}}
-          >
-            <CreateWordForm />
-          </Modal>
     </div>
   )
 }

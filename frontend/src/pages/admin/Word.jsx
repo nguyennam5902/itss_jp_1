@@ -1,16 +1,16 @@
 import React, { useState,useEffect } from 'react'
-import { Table , Pagination, Button, Modal, Popconfirm, Form  } from 'antd';
+import { Table, Button, Modal } from 'antd';
 import icons from '../../consts/const';
 import EditWordForm from '../../components/admin/EditWordForm';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate,useParams, } from 'react-router-dom';
+
 import commonRoute from '../../consts/api';
 const Word = () => {
   const navigate = useNavigate()
   const {id} = useParams()
-  const [listWords, setListWords] = useState([])
+  const [listWords, setListWords] = useState([])  
   const [visible, setVisible] = useState(false);
   const [editWord, setEditWord] = useState(null)
-  const [form] = Form.useForm();
 
   const columns = [
     {
@@ -53,13 +53,11 @@ const Word = () => {
           style={{ background: 'none', border: 'none' }} 
           onClick={() => {
             setEditWord(record)
-            console.log(record)
             showCreateModal()
           }}>
           <img src={icons.EditButton} alt="Button Image" style={{ height: '20px', width: '20px' }} />
         </Button>
       ),
-
     },
     {
       title: <strong>Remove</strong>,
@@ -85,38 +83,40 @@ const Word = () => {
 
     const handleCancel = () => {
         setVisible(false);
+
     };
 
     const handleCreate = () => {
-        // Handle form submission logic here
         setVisible(false);
-        alert('Edit word successfull');
     };
   
-  const handleButtonClick = (record) => {
-    Modal.confirm({
-      title: 'Confirm',
-      content: 'Are you sure you want to delete this word?',
-      onOk: () => handleDeleteWord(record._id),
-      okButtonProps: { style: { background: 'blue' } },
-    });
-  };
+    const handleButtonClick = (record) => {
+        Modal.confirm({
+        title: 'Confirm',
+        content: 'Are you sure you want to delete this word?',
+        onOk: () => handleDeleteWord(record._id),
+        okButtonProps: { style: { background: 'blue' } },
+        });
+    };
 
-  const backAction = () => {
-    navigate(-1)
-  }
+    const backAction = () => {
+        navigate(-1)
+    }
 
     // handle get word by topic
-  const handleGetWordByTopic = async (id) =>{
-    try {
-      const response = await fetch(`${commonRoute}topic/${id}`);
-      const result = await response.json();
-      setListWords(result.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    const handleGetWordByTopic = async (id) =>{
+        try {
+        const response = await fetch(`${commonRoute}topic/${id}`);
+        const result = await response.json();
+        //   setListWords(result.data)
+        const updatedList = [...listWords, ...result.data];
+        setListWords(updatedList);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
-  }
 
+  // handle delete word
   const handleDeleteWord = async(id) =>{
     try{
         const response = await fetch(`${commonRoute}admin/word/${id}`,{
@@ -131,10 +131,10 @@ const Word = () => {
       console.error('Error fetching data:', error);
     }
   }
-    //fetch api
+
   useEffect(() =>{
     handleGetWordByTopic(id);
-  },[id])
+  },[])
 
   return (
       <div className="w-full">
@@ -151,31 +151,8 @@ const Word = () => {
             <h2 className="text-sm font-bold ml-10">{listWords.length} Words</h2>
         </div>
         <div className="m-10 justify-center content-center overflow-x-auto">
-          <Table
-            dataSource={listWords}
-            columns={columns} 
-            pagination = {false} 
-          >
-            
-          </Table>
-          {/* <Pagination style={{ marginTop: '16px' }} defaultCurrent={1} total={50} pageSize={10} /> */}
-          {
-            editWord != null && (
-            <Modal
-                title="Edit this word"
-                open={visible}
-                onOk={handleCreate}
-                onCancel={handleCancel}
-                okText="Edit"
-                cancelText="Cancel"
-                okButtonProps={{ style: { background: 'blue', color: 'white' }}}
-                >
-                    {console.log(editWord)}
-                    <EditWordForm editWord = {editWord}/>       
-            </Modal>
-            )
-          }
-          
+          <Table dataSource={listWords} columns={columns} pagination = {false} />
+          <EditWordForm editWord={editWord} visible = {visible} handleCreate={handleCreate} handleCancel = {handleCancel}/>
         </div>
     </div>
   )
