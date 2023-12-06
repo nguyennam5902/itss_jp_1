@@ -16,4 +16,12 @@ npm ci
 Step 4: Run<br/>
 ```shell
 node .\index.js
+
+### Frontend
+Install package: npm install
+Run : npm start
+
+With Role:
+	User: start with route : '.../' or '.../search'
+	Admin : start with route: '.../admin/topic_manage'
 ```
