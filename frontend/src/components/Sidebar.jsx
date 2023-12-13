@@ -53,7 +53,7 @@ const Sidebar = ({children}) => {
           <h3 className= "user_name">Username</h3>
         </div>
         
-        {isAdminRoute == true
+        {isAdminRoute === true
           ? (adminMenuItem.map((item, index)=>(
               <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
                   <div className = "icon">
