@@ -19,8 +19,8 @@ const Sidebar = ({children}) => {
       icon: icons.SearchIcon
     },
     {
-      path: "/review",
-      name: "Vocabulary review",
+      path: "/test",
+      name: "Test",
       icon: icons.ReviewIcon
     },
     {
