@@ -13,7 +13,7 @@ import Word from "./pages/admin/Word.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Test_detail from "./pages/Test_detail.jsx";
-
+import Bookmark from "./pages/Bookmark.jsx";
 const MainScreen = () => {
   return (
     <div className="main_screen">
@@ -28,7 +28,23 @@ const MainScreen = () => {
 };
 
 const App = () => {
+  // Tạo một đối tượng người dùng
+  const userObject = {
+    user_id: 1,
+    username: "exampleUser",
+    email: "user@example.com",
+    password: "12345678",
+    full_name: "exampleUser",
+    birthday: "1990-12-12",
+    job: "Teacher",
+  //  create_time: Date
+  };
 
+  // Chuyển đối tượng người dùng thành chuỗi JSON
+  const userJson = JSON.stringify(userObject);
+
+  // Lưu chuỗi JSON vào sessionStorage
+  sessionStorage.setItem("user", userJson);
   
   return (
     <BrowserRouter>
@@ -53,6 +69,7 @@ const App = () => {
             path="/test/:id"
             element={<Test_detail />}
           />
+          <Route path="/bookmark" element = {<Bookmark/>}/>
 
           {/* admin page */}
           <Route path="admin/topic_manage" element={<Vocabulary />} />

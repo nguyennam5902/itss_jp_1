@@ -16,6 +16,10 @@ const Header = ({children}) => {
           path: "/notification",
           name: "Notification",
         },
+        {
+          path: "/bookmark",
+          name: "Bookmark"
+        }
       ]
     return (
         <div className="header_container">
