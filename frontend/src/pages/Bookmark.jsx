@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Word from '../components/Word.jsx'
 import { useNavigate,useParams } from 'react-router-dom';
 import commonRoute from '../consts/api';
-const Learning_topic = (topic_detail) => {
+const Bookmark = (topic_detail) => {
   const navigate = useNavigate()
   const backAction = () => {
     navigate(-1)
@@ -14,19 +14,17 @@ const Learning_topic = (topic_detail) => {
     // handle search input
   const handleGetWordByTopic = async (id) =>{
     try {
-      const response = await fetch(`${commonRoute}topic/${id}`);
+      const response = await fetch(`${commonRoute}bookmark/`);
       const result = await response.json();
       setListWords(result.data);
     } catch (error) {
       console.error('Error fetching data:', error);
-    } finally {
-          // setLoading(false);
     }
   }
     
     //fetch api
   useEffect(() =>{
-    handleGetWordByTopic(id);
+    handleGetWordByTopic();
   },)
 
   return (
@@ -45,9 +43,7 @@ const Learning_topic = (topic_detail) => {
             <Word word = {word}  key = {index} />
           ))}
         </div>
-        <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div>
     </div>
   )
 }
-
-export default Learning_topic
+export default Bookmark
