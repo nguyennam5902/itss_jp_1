@@ -41,12 +41,12 @@ const ApproveComments = () => {
   
   const columns = [
     {
-      title: <strong>ID</strong>,
+      title: <strong>Mã</strong>,
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: <strong>Word</strong>,
+      title: <strong>Từ vựng</strong>,
       dataIndex: 'word',
       key: 'word',
     },
@@ -56,29 +56,29 @@ const ApproveComments = () => {
       key: 'hiragana',
     },
     {
-      title: <strong>User</strong>,
+      title: <strong>Người dùng</strong>,
       dataIndex: 'user',
       key: 'user',
     },
     {
-      title: <strong>Comment content</strong>,
+      title: <strong>Nội dung bình luận</strong>,
       dataIndex: 'comment_content',
       key: 'comment_content',
     },
     {
-      title: <strong>Time</strong>,
+      title: <strong>Thời gian</strong>,
       dataIndex: 'time',
       key: 'time',
     },
     {
-      title: <strong>Accept</strong>,
+      title: <strong>Chấp nhận</strong>,
       dataIndex: 'accept', // Use a unique identifier for each row
       render: (_, record) => (
         <input type="checkbox" onChange={(e) => console.log('Checkbox checked:', e.target.checked)} />
       ),
     },
     {
-      title: <strong>Remove</strong>,
+      title: <strong>Xóa</strong>,
       dataIndex: 'remove',
       key: 'remove',
       render: (_, record) => (
@@ -118,11 +118,11 @@ const ApproveComments = () => {
           
         <div className = "m-10 flex rounded-2xl justify-center items-center">
           <h1 className="text-2xl font-bold">
-            New comments
+            Bình luận mới
           </h1>
         </div>
         <div className="flex justify-left items-center h-full">
-            <h2 className="text-sm font-bold ml-10">{data.length} New comments to approve</h2>
+            <h2 className="text-sm font-bold ml-10">{data.length} Bình luận mới cần phê duyệt</h2>
         </div>
         <div className="m-10 justify-center content-center overflow-x-auto">
           <Table dataSource={data} columns={columns} pagination = {false}  />

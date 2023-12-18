@@ -45,7 +45,7 @@ const Learning_topic = (topic_detail) => {
             <Word word = {word}  key = {index} />
           ))}
         </div>
-        <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div>
+        <div className="font-bold text-red-500 text-sm">Phần trăm hoàn thành: 80%</div>
     </div>
   )
 }

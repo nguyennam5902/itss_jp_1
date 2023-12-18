@@ -15,17 +15,17 @@ const Sidebar = ({children}) => {
   const menuItem = [
     {
       path: "/search",
-      name: "Look up",
+      name: "Tra cứu",
       icon: icons.SearchIcon
     },
     {
       path: "/review",
-      name: "Vocabulary review",
+      name: "Ôn tập từ vựng",
       icon: icons.ReviewIcon
     },
     {
       path: "/learning",
-      name: "Vocabulary learning",
+      name: "Học từ vựng",
       icon: icons.LearningIcon
     },
   ]
@@ -33,12 +33,12 @@ const Sidebar = ({children}) => {
   const adminMenuItem = [
     {
       path: "admin/topic_manage",
-      name: "Vocabulary",
+      name: "Từ vựng",
       icon: icons.LearningIcon
     },
     {
       path: "admin/approve_comments",
-      name: "Approve comments",
+      name: "Phê duyệt bình luận",
       icon: icons.ReviewIcon
     },
   ]

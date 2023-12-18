@@ -32,7 +32,7 @@ const SearchBar = ({onSearch}) => {
         <input
           type="text"
           value={searchTerm}
-          placeholder="Search..."
+          placeholder="Tìm kiếm..."
           className="border-none mr-4 p-2 rounded-[20px] h-full w-full focus:border-transparent focus:outline-none"
           // onChange={(e) => onSearch(e.target.value)}
           onChange={handleChange}

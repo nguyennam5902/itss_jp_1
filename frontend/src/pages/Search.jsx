@@ -36,7 +36,7 @@ const Search = () => {
         <SearchBar onSearch={handleSearch}/>
       </div>
       <div className="flex justify-left items-center h-full">
-          <h2 className="text-sm font-bold ml-10">{listResult.length} Results</h2>
+          <h2 className="text-sm font-bold ml-10">{listResult.length} Kết quả</h2>
       </div>
       
       <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">

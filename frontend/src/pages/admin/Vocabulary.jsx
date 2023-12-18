@@ -36,12 +36,12 @@ const Vocabulary = () => {
 
   const columns = [
     {
-      title: <strong>Topic ID</strong>,
+      title: <strong>Mã chủ đề</strong>,
       dataIndex: '_id',
       key: '_id',
     },
     {
-      title: <strong>Topic name</strong>,
+      title: <strong>Tên chủ đề</strong>,
       dataIndex: 'topic_name',
       key: 'topic_name',
     },
@@ -56,7 +56,7 @@ const Vocabulary = () => {
     //   key: 'created_time',
     // },
     {
-      title: <strong>Create new word</strong>,
+      title: <strong>Tạo từ mới</strong>,
       dataIndex: 'create_new_word',
       key: 'create_new_word',
       render: (_, record) => (
@@ -77,7 +77,7 @@ const Vocabulary = () => {
 
     },
     {
-      title: <strong>Remove</strong>,
+      title: <strong>Xóa</strong>,
       dataIndex: 'remove',
       key: 'remove',
       render: (_, record) => (
@@ -169,11 +169,11 @@ const Vocabulary = () => {
       <div className="w-full">
         <div className = "m-10 flex rounded-2xl justify-center items-center">
           <h1 className="text-2xl font-bold">
-            List of topics
+            Danh sách chủ đề
           </h1>
         </div>
         <div className="flex justify-left items-center h-full">
-            <h2 className="text-sm font-bold ml-10">{topics.length} Topics</h2>
+            <h2 className="text-sm font-bold ml-10">{topics.length} Chủ đề</h2>
         </div>
         <div className="m-10 justify-center content-center overflow-x-auto">
           <Table

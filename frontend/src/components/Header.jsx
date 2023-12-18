@@ -6,15 +6,15 @@ const Header = ({children}) => {
     const menuItem = [
         {
           path: "/signup",
-          name: "Sign up",
+          name: "Đăng ký",
         },
         {
           path: "/login",
-          name: "Log in",
+          name: "Đăng nhập",
         },
         {
           path: "/notification",
-          name: "Notification",
+          name: "Thông báo",
         },
       ]
     return (

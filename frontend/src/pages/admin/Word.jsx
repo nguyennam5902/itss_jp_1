@@ -139,7 +139,7 @@ const Word = () => {
   return (
       <div className="w-full">
          <button className="bg-neutral-200 font-bold py-2 px-4 rounded text-sm ml-5 mt-5" onClick={backAction}>
-            Back
+            Quay lại
         </button>
           
         <div className = "mr-10 ml-10 mb-10 flex rounded-2xl justify-center items-center">

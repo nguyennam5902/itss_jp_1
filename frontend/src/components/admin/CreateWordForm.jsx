@@ -30,7 +30,7 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
 
     return (
         <Modal
-            title="Edit this word"
+            title="Thêm từ vựng"
             open={visible}
             onOk={handleCreate}
             onCancel={handleCancel}
@@ -40,7 +40,7 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
             footer = {null}
         >
             <Form labelCol={{ span: 7,}} wrapperCol={{span: 14, }} layout="horizontal" style={{ maxWidth: 700,}}  onFinish={onFinish}>
-                <Form.Item label="Kanji" name="kanji" rules={[{ required: true, message: 'Please input this field!' }]}>
+                <Form.Item label="Kanji" name="kanji" rules={[{ required: true, message: 'Vui lòng nhập trường này!' }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item label="Hiragana" name="hiragana">
@@ -49,31 +49,31 @@ const CreateWordForm = ({topic, visible, handleCreate, handleCancel})  => {
                 <Form.Item label="Katakana" name="Katakana">
                     <Input />
                 </Form.Item>
-                <Form.Item label="Romaji" name = "romaji" rules={[{ required: true, message: 'Please input this field!' }]}>
+                <Form.Item label="Romaji" name = "romaji" rules={[{ required: true, message: 'Vui lòng nhập trường này!' }]}>
                     <Input/>
                 </Form.Item>
-                <Form.Item label="Meaning" name = "meaning" rules={[{ required: true, message: 'Please input this field!' }]}>
+                <Form.Item label="Nghĩa" name = "meaning" rules={[{ required: true, message: 'Vui lòng nhập trường này!' }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item label="Type" name = "type" rules={[{ required: true, message: 'Please input this field!' }]}>
+                <Form.Item label="Kiểu" name = "type" rules={[{ required: true, message: 'Vui lòng nhập trường này!' }]}>
                     <Select>
                         <Select.Option value="noun">Noun</Select.Option>
                         <Select.Option value="verd">Verd</Select.Option>
                         <Select.Option value="adjective">Adjective</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item label="Example" name = "example" rules={[{ required: true, message: 'Please input this field!' }]}>
+                <Form.Item label="Ví dụ" name = "example" rules={[{ required: true, message: 'Vui lòng nhập trường này!' }]}>
                     <TextArea rows={2} />
                 </Form.Item>
-                <Form.Item label="Example(Meaning)" name = "example_meaning">
+                <Form.Item label="Ví dụ(Ý nghĩa)" name = "example_meaning">
                     <TextArea rows={2} />
                 </Form.Item>
                 <Form.Item style={{ textAlign: 'right' }}>
                     <Button type="primary" htmlType="cancel" onClick={handleCancel} className="bg-red-400" >
-                        Cancel
+                        Hủy bỏ
                     </Button>
                     <Button type="primary" htmlType="submit" onClick={handleCreate} className= "bg-blue-500 ml-8">
-                        Submit
+                        Lưu lại
                     </Button>
                 </Form.Item>
             </Form>    

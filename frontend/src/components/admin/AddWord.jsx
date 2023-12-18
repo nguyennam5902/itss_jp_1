@@ -160,10 +160,10 @@ const AddWord = () => {
         
         <div>
           <button type="button" className="cancelButton" onClick={handleCancel}>
-            Cancel
+            Hủy bỏ
           </button>
           <button type="button" className="doneButton" onClick={handleDone}>
-            Done
+            Thành công
           </button>
         </div>
       </form>
