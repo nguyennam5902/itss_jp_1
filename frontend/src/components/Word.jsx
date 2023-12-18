@@ -1,6 +1,7 @@
 import React ,{useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {Tag} from 'antd'
+import { LikeButton } from '@lyket/react';
 const Word = (word_detail) => {
     const navigate = useNavigate()
     const [isClicked, setIsClicked] = useState(false);
@@ -35,7 +36,7 @@ const Word = (word_detail) => {
         </div>
         
         <div className="flex justify-between m-2">
-            <button className={`flex-left fit-content bg-${isClicked ? "grey" : "orange"}-200 shadow-lg rounded-md active:bg-${isClicked ? "grey" : "orange"}-200`}
+            <button className={`flex-left fit-content bg-${isClicked ? "gray" : "orange"}-200 shadow-lg rounded-md active:bg-${isClicked ? "gray" : "orange"}-200`}
                 onClick={bookmarkTapped}>
             {/* <img src='../assets/icons/.png' alt="" /> */}
                 <p className="text-left font-bold ml-2 text-sm">
@@ -44,6 +45,26 @@ const Word = (word_detail) => {
                     : '+ Add to list of favorite words'}
                 </p>
             </button>
+            {/* <LikeButton
+  id="pizza"
+  namespace="great-things"
+>
+  {({ handlePress, totalLikes, userLiked, isLoading }) => {
+    return (
+      <div>
+        <button
+          className="big"
+          onClick={handlePress}
+          disabled={isLoading}
+        >
+          🍕
+        </button>
+        <strong>Total likes: {totalLikes}</strong>
+        {userLiked && <div>Thanks for liking pizza!</div>}
+      </div>
+    )
+  }}
+</LikeButton> */}
             <h2 className="flex text-right text-red-500 font-bold">Seen</h2>
         </div>
         
