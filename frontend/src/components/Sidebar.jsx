@@ -1,10 +1,10 @@
 import React, { Children, useState, useEffect } from 'react'
-import { NavLink,useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import '../App.css'
 // import { useAuth } from './path-to-auth-context/AuthContext'
 import icons from '../consts/const';
 
-const Sidebar = ({children}) => {
+const Sidebar = ({ children }) => {
   const navigate = useNavigate();
   // const { role } = useAuth();
   const location = useLocation();
@@ -28,8 +28,13 @@ const Sidebar = ({children}) => {
       name: "Vocabulary learning",
       icon: icons.LearningIcon
     },
+    {
+      path: "/userinformation",
+      name: "User Information",
+      icon: icons.UserInformationIcon
+    },  
   ]
-  
+
   const adminMenuItem = [
     {
       path: "admin/topic_manage",
@@ -50,26 +55,26 @@ const Sidebar = ({children}) => {
           <h1 className="logo">Logo</h1>
         </div>
         <div className="user_info">
-          <h3 className= "user_name">Username</h3>
+          <h3 className="user_name">Username</h3>
         </div>
-        
+
         {isAdminRoute === true
-          ? (adminMenuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
-                  <div className = "icon">
-                    <img src={item.icon} alt="" />
-                  </div>
-                  <div className="link_text" >{item.name}</div>
-              </NavLink>
-              ))
-            )  
+          ? (adminMenuItem.map((item, index) => (
+            <NavLink to={item.path} key={index} className="link" activeClassName="active">
+              <div className="icon">
+                <img src={item.icon} alt="" />
+              </div>
+              <div className="link_text" >{item.name}</div>
+            </NavLink>
+          ))
+          )
           : (
-            menuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
-                  <div className = "icon">
-                    <img src={item.icon} alt="" />
-                  </div>
-                  <div className="link_text" >{item.name}</div>
+            menuItem.map((item, index) => (
+              <NavLink to={item.path} key={index} className="link" activeClassName="active">
+                <div className="icon">
+                  <img src={item.icon} alt="" />
+                </div>
+                <div className="link_text" >{item.name}</div>
               </NavLink>
             ))
           )

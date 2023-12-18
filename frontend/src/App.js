@@ -12,6 +12,7 @@ import ApproveComments from "./pages/admin/ApproveComments.jsx";
 import Word from "./pages/admin/Word.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
+import UserInformation from "./pages/UserInformation.jsx";
 
 const MainScreen = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/learning" element={<Learning />} />
           <Route path="/review" element={<Review />} />
+          <Route path="/userinformation" element={<UserInformation />} />
           <Route
             path="/learning/learning_topic/:id"
             element={<Learning_topic />}
