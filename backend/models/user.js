@@ -6,6 +6,6 @@ const userSchema = new mongoose.Schema({
    birthday: Date,
    job: String,
    create_time: Date,
-   email:String
+   email: String
 });
 module.exports = mongoose.model("user_infor", userSchema);

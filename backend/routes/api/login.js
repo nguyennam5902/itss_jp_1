@@ -1,4 +1,4 @@
-const User = require('../../models/user')
+const User = require('../../models/user');
 /**
  * Login
  * @param {Request} req Request client -> server
@@ -19,7 +19,7 @@ const loginFunction = async function (req, res) {
    }
    else {
       res.send({
-         data: user._id.toString(),
+         data: user,
          status: 200,
          message: "Login successful"
       })

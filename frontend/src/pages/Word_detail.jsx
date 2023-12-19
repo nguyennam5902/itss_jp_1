@@ -8,6 +8,9 @@ import icons from '../consts/const'
 import commonRoute from '../consts/api'
 const Word_detail = () => {
   const navigate = useNavigate()
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+
   const backAction = () => {
     navigate(-1)
   }
@@ -43,6 +46,8 @@ const Word_detail = () => {
   const [comments, setComments] = useState(comments_default);
   const [topic, setTopic] = useState("")
   const [isClicked, setIsClicked] = useState(false)
+  const [newComment, setNewComment] = useState("")
+
   const bookmarkTapped = () => {
     setIsClicked(!isClicked);
     console.log(isClicked)
@@ -77,11 +82,36 @@ const Word_detail = () => {
   //   }
   // }
 
+  const handleAddComment = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`${commonRoute}vocab/${id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({comment_text: newComment, user_id: user._id}),
+      });
+      const result = await response.json();
+      console.log(result)
+      setComments(result.comments)
+      // if (result.data.status == 200) {
+      //   console.log(result.data);
+      // } else {
+      //   const errorData = await response.json();
+      //   console.error(errorData);
+      // }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   //fetch api
   useEffect(() =>{
     handleGetWord(id);
+    // handleAddComment();
     // handleGetTopic(word.topic_id)
-  },[id])
+  },[id, newComment])
 
   return (
     <div className="w-full h-full">
@@ -145,15 +175,16 @@ const Word_detail = () => {
                 <Comment comment = {comment}  key = {index} />
               ))}
           </div>
-          <div className="flex items-center space-x-0 ">
+          <form className="flex items-center space-x-0 " onSubmit={handleAddComment}>
             <input
               type="text"
-              placeholder="Comment..."
+              placeholder="Add comment"
+              onChange={(e) => setNewComment(e.target.value)}
               className="border p-2 m-1 rounded focus:outline-none focus:ring focus:border-blue-300 w-[500px]"
               // onChange={(e) => onSearch(e.target.value)}
             />
-            <button className="text-white p-2 rounded"><img src={icons.SendIcon} alt = ""/></button>
-          </div>
+            <button className="text-white p-2 rounded"><img src={icons.SendIcon} alt = "" type = "submit"/></button>
+          </form>
         </div>
 
       </div>
