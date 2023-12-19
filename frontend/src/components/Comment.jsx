@@ -11,8 +11,8 @@ const Comment = (props) => {
             <h2 class="font-bold">{comment.username}</h2>
             <p class="text-sm">{comment.time}</p>
         </div>
-        <div class="flex-1 items-center bg-white rounded-md shadow-md border border-gray-100 ml-2 p-4">
-            <p className="text-base">{comment.content}</p>
+        <div class="flex-1 items-center bg-white rounded-md shadow-md border border-gray-100 ml-2 p-4 mt-2">
+            <p className="text-base">{comment.comment_text}</p>
         </div>
     </div>
   )

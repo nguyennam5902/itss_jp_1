@@ -5,6 +5,7 @@ import SearchIconButton from '../assets/icons/search.png'
 import SendIcon from '../assets/icons/send.png'
 import RemoveButton from '../assets/icons/remove.png'
 import EditButton from '../assets/icons/edit.png'
+import AddButton from '../assets/icons/plus.png'
 const icons = {
   SearchIcon,
   ReviewIcon,
@@ -12,7 +13,8 @@ const icons = {
   SearchIconButton,
   SendIcon,
   RemoveButton,
-  EditButton
+  EditButton,
+  AddButton
 };
 
 export default icons;

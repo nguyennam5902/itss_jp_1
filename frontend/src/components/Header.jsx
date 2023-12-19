@@ -1,13 +1,11 @@
-import React, { Children } from "react";
+import React, { Children, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../App.css";
 
 const Header = ({ children }) => {
-  const menuItem = [
-    {
-      path: "/userInfo",
-      name: "User Info",
-    },
+  const user = sessionStorage.getItem('user')
+  // chua dang nhap
+  const menuItem1 = [
     {
       path: "/signup",
       name: "Sign up",
@@ -15,6 +13,18 @@ const Header = ({ children }) => {
     {
       path: "/login",
       name: "Log in",
+    },
+  ];
+
+  // khi da dang nhap
+  const menuItem2 = [
+    {
+      path: "/userInfo",
+      name: "User Info",
+    },
+    {
+      path: "/logout",
+      name: "Log out",
     },
     {
       path: "/notification",
@@ -25,10 +35,15 @@ const Header = ({ children }) => {
       name: "Bookmark",
     },
   ];
+
+  useEffect(() =>{
+  },[]);
+
   return (
     <div className="header_container">
       <div className="header w-full">
-        {menuItem.map((item, index) => (
+        {user ?
+        menuItem2.map((item, index) => (
           <NavLink
             to={item.path}
             key={index}
@@ -40,7 +55,21 @@ const Header = ({ children }) => {
               {item.name}
             </div>
           </NavLink>
-        ))}
+        ))
+        : menuItem1.map((item, index) => (
+          <NavLink
+            to={item.path}
+            key={index}
+            className="header_link"
+            activeClassName="active"
+          >
+            <div className="notification">
+              {/* <img src={item.icon} alt="" /> */}
+              {item.name}
+            </div>
+          </NavLink>
+        ))
+      }
       </div>
       {/* <main>{children}</main> */}
     </div>
