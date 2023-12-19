@@ -2,29 +2,34 @@ import React, {useEffect, useState} from 'react'
 import Word from '../components/Word.jsx'
 import { useNavigate,useParams } from 'react-router-dom';
 import commonRoute from '../consts/api';
-const Bookmark = (topic_detail) => {
+const Bookmark = () => {
   const navigate = useNavigate()
+  const user = JSON.parse(sessionStorage.getItem('user'));
   const backAction = () => {
     navigate(-1)
   }
-  const {id} = useParams()
+  // const {id} = useParams()
 
   const [listWords, setListWords] = useState([])
 
+
     // handle search input
-  const handleGetWordByTopic = async (id) =>{
+  const handleGetWordBookmark = async () =>{
     try {
-      const response = await fetch(`${commonRoute}bookmark/`);
+      const response = await fetch(`${commonRoute}bookmark/${user._id}`);
+     
       const result = await response.json();
+      console.log(result)
       setListWords(result.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
+
     
     //fetch api
   useEffect(() =>{
-    handleGetWordByTopic();
+    handleGetWordBookmark();
   },)
 
   return (

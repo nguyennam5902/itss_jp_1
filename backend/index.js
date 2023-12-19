@@ -85,8 +85,8 @@ app.get('/api/topic/:topicID', async (req, res) => {
       message: 'OK'
    })
 })
-app.get('api/bookmark/', async (req, res) => {
-   let user = req.session.user;
+app.get('/api/bookmark/:user', async (req, res) => {
+   let user = req.params.user;
    const bookmark = await Bookmark.findOne({ user_id: user }).exec();
    if (!bookmark) {
       const newBookmark = new Bookmark({
@@ -103,16 +103,24 @@ app.get('api/bookmark/', async (req, res) => {
       });
    }
 })
-app.post('api/bookmark/:wordID', async (req, res) => {
-   let user = req.session.user;
-   let wordID = req.params.wordID;
+app.get('/api/bookmark/:user', async (req, res) => {
+   let user = req.params.user;
    const bookmark = await Bookmark.findOne({ user_id: user }).exec();
-   if (!bookmark) return res.status(401).send();
+   if (!bookmark) {
+      const newBookmark = new Bookmark({
+         user_id: user,
+         vocab_marked: []
+      });
+      newBookmark.save().then(console.log('BOOKMARK CREATED!'))
+   }
    else {
-      bookmark.vocab_marked.push(new mongoose.Types.ObjectId(wordID));
-      bookmark.save().then(console.log('ADDED'));
+      const output = [];
+      for (let i = 0; i < bookmark.vocab_marked.length; i++) {
+         const word = await Vocab.findById(bookmark.vocab_marked[i]).exec();
+         output.push(word);
+      }
       res.send({
-         data: null,
+         data: output,
          status: 200,
          message: 'OK'
       });

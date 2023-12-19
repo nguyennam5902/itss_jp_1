@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-const User = require("../../models/user");
-
-const register = async (req, res) => {
-   const fullname = req.body.fullname;
-   const email = req.body.email;
-   const username = req.body.username;
-   const password = req.body.password;
-   const user = await User.findOne({
-      email: email
-   }).exec();
-   if (user == null) {
-      const time = (new Date()).toLocaleString();
-      const newUser = new User({
-         username: username,
-         password: password,
-         email: email,
-         full_name: fullname,
-         create_time: time
-      });
-      newUser.save().then(console.log(newUser._id.toString()));
-      res.send({
-         data: newUser,
-         status: 200,
-         message: "OK"
-      });
-=======
 const User = require('../../models/user')
 /**
  * Login
@@ -56,22 +29,13 @@ const registerFunction = async function (req, res) {
          status: 200,
          message: "Register finish"
       })
->>>>>>> main
    }
    else {
       res.send({
          data: null,
          status: 404,
-<<<<<<< HEAD
-         message: "User exist"
-      })
-   }
-}
-module.exports = register;
-=======
          message: "Register fail"
       })
    }
 };
 module.exports = registerFunction;
->>>>>>> main
