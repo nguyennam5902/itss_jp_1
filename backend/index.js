@@ -11,6 +11,7 @@ const { default: mongoose } = require('mongoose');
 const Vocab = require('./models/vocab');
 const kuroshiro = new Kuroshiro();
 const cors = require('cors');
+const Test = require('./models/test');
 
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
 db.connect();
@@ -227,6 +228,21 @@ app.put('/api/admin/word/:wordID/comments/:commentID', async (req, res) => {
       message: 'OK'
    })
 })
+app.get('api/test/history/:user_id', async (req, res) => {
+   const user_id = req.params.user_id;
+   const test = await Test.find({
+      user_id: user_id
+   }).exec();
+   if (test.length == 0) {
+      //NO TEST RECORD
+   } else {
+      res.send({
+         data: test,
+         status: 200,
+         message: "OK"
+      })
+   }  
+});
 
 app.listen(app.get('port'), () => {
    console.log(`Node app is running on port ${app.get('port')}`);
