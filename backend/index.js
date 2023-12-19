@@ -21,6 +21,7 @@ app.set('port', 9000);
 
 app.use('/api', router);
 app.post('/api/login', require('./routes/api/login'));
+app.post('/api/register', require('./routes/api/register'));
 
 // TODO
 app.get('/api/words/', wordAPI.all);
