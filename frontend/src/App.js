@@ -28,24 +28,6 @@ const MainScreen = () => {
 };
 
 const App = () => {
-  // Tạo một đối tượng người dùng
-  const userObject = {
-    user_id: 1,
-    username: "exampleUser",
-    email: "user@example.com",
-    password: "12345678",
-    full_name: "exampleUser",
-    birthday: "1990-12-12",
-    job: "Teacher",
-  //  create_time: Date
-  };
-
-  // Chuyển đối tượng người dùng thành chuỗi JSON
-  const userJson = JSON.stringify(userObject);
-
-  // Lưu chuỗi JSON vào sessionStorage
-  sessionStorage.setItem("user", userJson);
-  
   return (
     <BrowserRouter>
       <Routes>
@@ -65,11 +47,8 @@ const App = () => {
             path="/learning/learning_topic/:word_id/words/:id"
             element={<Word_detail />}
           />
-          <Route
-            path="/test/:id"
-            element={<Test_detail />}
-          />
-          <Route path="/bookmark" element = {<Bookmark/>}/>
+          <Route path="/test/:id" element={<Test_detail />} />
+          <Route path="/bookmark" element={<Bookmark />} />
 
           {/* admin page */}
           <Route path="admin" element={<Vocabulary />} />
