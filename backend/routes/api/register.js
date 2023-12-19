@@ -18,7 +18,10 @@ const registerFunction = async function (req, res) {
          full_name: full_name,
          username: username,
          email: email,
-         password: password
+         password: password,
+         birthday: new Date().toLocaleString(),
+         create_time: new Date().toLocaleString(),
+         job: ""
       });
       newUser.save().then(console.log("FINISH"));
       res.send({

@@ -12,7 +12,7 @@ const Vocab = require('./models/vocab');
 const kuroshiro = new Kuroshiro();
 const cors = require('cors');
 const Test = require('./models/test');
-
+const User = require('./models/user');
 kuroshiro.init(new KuromojiAnalyzer()).then(console.log('APP STARTED'));
 db.connect();
 app.use(cors());
@@ -22,6 +22,26 @@ app.set('port', 9000);
 app.use('/api', router);
 app.post('/api/login', require('./routes/api/login'));
 app.post('/api/register', require('./routes/api/register'));
+app.put('/api/profile/edit/:user', async (req, res) => {
+   const userID = req.params.user;
+   const user = await User.findById(userID).exec();
+   if (user != null) {
+      const full_name = req.body.full_name;
+      const username = req.body.username;
+      const birthday = req.body.birthday;
+      const job = req.body.job;
+      user.full_name = full_name;
+      user.birthday = birthday;
+      user.job = job;
+      user.username = username;
+      user.save().then(console.log(`SAVE:${user._id}`));
+   }
+   res.send({
+      data: user,
+      status: 200,
+      message: 'OK'
+   })
+})
 
 // TODO
 app.get('/api/words/', wordAPI.all);
@@ -242,7 +262,7 @@ app.get('api/test/history/:user_id', async (req, res) => {
          status: 200,
          message: "OK"
       })
-   }  
+   }
 });
 
 app.listen(app.get('port'), () => {
