@@ -72,6 +72,7 @@ const App = () => {
           <Route path="/bookmark" element = {<Bookmark/>}/>
 
           {/* admin page */}
+          <Route path="admin" element={<Vocabulary />} />
           <Route path="admin/topic_manage" element={<Vocabulary />} />
           <Route path="admin/approve_comments" element={<ApproveComments />} />
           <Route path="admin/topic_manage/:id" element={<Word />} />
