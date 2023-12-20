@@ -85,8 +85,8 @@ app.get('/api/topic/:topicID', async (req, res) => {
       message: 'OK'
    })
 })
-app.get('api/bookmark/', async (req, res) => {
-   let user = req.session.user;
+app.get('/api/bookmark/:user', async (req, res) => {
+   let user = req.params.user;
    const bookmark = await Bookmark.findOne({ user_id: user }).exec();
    if (!bookmark) {
       const newBookmark = new Bookmark({
@@ -96,8 +96,13 @@ app.get('api/bookmark/', async (req, res) => {
       newBookmark.save().then(console.log('BOOKMARK CREATED!'))
    }
    else {
+      const output = [];
+      for (let i = 0; i < bookmark.vocab_marked.length; i++) {
+         const word = await Vocab.findById(bookmark.vocab_marked[i]).exec();
+         output.push(word);
+      }
       res.send({
-         data: bookmark.vocab_marked,
+         data: output,
          status: 200,
          message: 'OK'
       });
@@ -256,6 +261,11 @@ app.get('api/test/history/:user_id', async (req, res) => {
    }).exec();
    if (test.length == 0) {
       //NO TEST RECORD
+      res.send({
+         data: [],
+         status: 200,
+         message: "OK"
+      })
    } else {
       res.send({
          data: test,
