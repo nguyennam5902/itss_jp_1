@@ -1,40 +1,89 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Tag, Modal, Alert } from "antd";
-import { LikeButton } from "@lyket/react";
 import commonRoute from "../consts/api";
-const Word = (word_detail) => {
-  const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(word_detail.isBookmark);
-  const [word,setWord] = useState(word_detail.word)
+import { getListBookmark } from "./listBookmark";
 
-  const bookmarkTapped = async (word_id) => {
+const Word = ({ word ,listWords}) => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const navigate = useNavigate();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  // const [listWords, setListWords] = useState([]);
+
+  useEffect(() => {
+    // const fetchListBookmark = async () => {
+    //   try {
+    //     const listBookmark = await getListBookmark(); // Assuming getListBookmark is defined
+    //     setListWords(listBookmark);
+    //   } catch (error) {
+    //     console.error("Error fetching list bookmark:", error);
+    //   }
+    // };
+
+    getListBookmark();
+    checkIsBookmark();
+    // handleBookmark()
+    // handleUnBookmark()
+  }, [listWords, word]);
+
+  // const checkIsBookmark = async () => {
+  //   try {
+  //     const listWords = await getListBookmark(); // Assuming getListBookmark returns an array of objects
+  //     const isWordInArray = listWords.some((word) => word._id === word._id);
+  //     setIsBookmarked(isWordInArray);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  const checkIsBookmark = () => {
+    // Ensure that listWords is defined before calling the some method
+    if (listWords && listWords.length > 0) {
+      const isWordInArray = listWords.some(
+        (listWord) =>
+          listWord._id === word._id || listWord._hiragana === word.hiragana
+      );
+      setIsBookmarked(isWordInArray);
+    } else {
+      // Handle the case where listWords is undefined or empty
+      setIsBookmarked(false);
+    }
+  };
+
+  const handleBookmark = async () => {
     try {
-      if (isClicked === true) {
-        const response = await fetch(`${commonRoute}bookmark/${word_id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(word_id),
-        });
-        const result = await response.json();
-        if (result.status === 200) {
-          setIsClicked(!isClicked);
-        }
-      } else {
-        const response = await fetch(`${commonRoute}bookmark/${word_id}`, {
+      const response = await fetch(`${commonRoute}bookmark`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: user._id, wordID: word._id }),
+      });
+      const result = await response.json();
+      if (result.status === 200) {
+        setIsBookmarked(true);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleUnBookmark = async () => {
+    try {
+      const response = await fetch(
+        `${commonRoute}bookmark/${user._id}/${word._id}`,
+        {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-        });
-        const result = await response.json();
-        if (result.status === 200) {
-          setIsClicked(!isClicked);
-        }else{
-            console.log("can not bookmark this one")
         }
+      );
+      const result = await response.json();
+      if (result.status === 200) {
+        // setIsClicked(false);
+        setIsBookmarked(false);
+      } else {
+        console.log("can not bookmark this one");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -45,10 +94,6 @@ const Word = (word_detail) => {
   const handleTap = () => {
     navigate(`words/${word._id}`);
   };
-
-  useEffect(()=>{
-    bookmarkTapped(word._id)
-  },[])
 
   return (
     <div className=" flex-col justify-between h-[150px] rounded-[10px] shadow-lg border border-gray-100 flex">
@@ -80,21 +125,25 @@ const Word = (word_detail) => {
       </div>
 
       <div className="flex justify-between m-2">
-        <button
-          className={`flex-left fit-content bg-${
-            isClicked ? "gray" : "orange"
-          }-200 shadow-lg rounded-md active:bg-${
-            isClicked ? "gray" : "orange"
-          }-200`}
-          onClick={() => bookmarkTapped(word._id)}
-        >
-          {/* <img src='../assets/icons/.png' alt="" /> */}
-          <p className="text-left font-bold ml-2 text-sm">
-            {isClicked
-              ? "- Remove from list of favorite words"
-              : "+ Add to list of favorite words"}
-          </p>
-        </button>
+        {isBookmarked ? (
+          <button
+            className="flex-left fit-content bg-gray-200 shadow-lg rounded-md active:bg-orange-200"
+            onClick={handleUnBookmark}
+          >
+            <p className="text-left font-bold ml-2 text-sm">
+              - Remove from list of favorite words
+            </p>
+          </button>
+        ) : (
+          <button
+            className="flex-left fit-content bg-orange-200 shadow-lg rounded-md active:bg-gray-200"
+            onClick={handleBookmark}
+          >
+            <p className="text-left font-bold ml-2 text-sm">
+              + Add to your favorite words
+            </p>
+          </button>
+        )}
 
         <h2 className="flex text-right text-red-500 font-bold">Seen</h2>
       </div>

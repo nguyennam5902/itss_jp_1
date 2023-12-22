@@ -10,7 +10,6 @@ const Learning = () => {
     try {
       const response = await fetch(`${commonRoute}search/topic/`);
       const result = await response.json();
-      console.log(result.data)
       return result.data
     } catch (error) {
       console.error('Error fetching data:', error);
