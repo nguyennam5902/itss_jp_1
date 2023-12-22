@@ -5,13 +5,13 @@ import { LikeButton } from "@lyket/react";
 import commonRoute from "../consts/api";
 const Word = (word_detail) => {
   const navigate = useNavigate();
-  const [isClicked, setIsClicked] = useState(false);
-  const word = word_detail.word;
+  const [isClicked, setIsClicked] = useState(word_detail.isBookmark);
+  const [word,setWord] = useState(word_detail.word)
 
   const bookmarkTapped = async (word_id) => {
     try {
       if (isClicked === true) {
-        const response = await fetch(`${commonRoute}/bookmark/${word_id}`, {
+        const response = await fetch(`${commonRoute}bookmark/${word_id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const Word = (word_detail) => {
           setIsClicked(!isClicked);
         }
       } else {
-        const response = await fetch(`${commonRoute}/bookmark/${word_id}`, {
+        const response = await fetch(`${commonRoute}bookmark/${word_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -45,6 +45,10 @@ const Word = (word_detail) => {
   const handleTap = () => {
     navigate(`words/${word._id}`);
   };
+
+  useEffect(()=>{
+    bookmarkTapped(word._id)
+  },[])
 
   return (
     <div className=" flex-col justify-between h-[150px] rounded-[10px] shadow-lg border border-gray-100 flex">
