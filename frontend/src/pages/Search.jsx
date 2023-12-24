@@ -1,56 +1,66 @@
-import React, {useState, useEffect} from 'react'
-import SearchBar from '../components/SearchBar'
-import Word from '../components/Word'
-import {Pagination} from 'antd'
-import commonRoute from '../consts/api'
+import React, { useState, useEffect } from "react";
+import SearchBar from "../components/SearchBar.jsx";
+import Word from "../components/Word.jsx";
+import { Pagination } from "antd";
+import commonRoute from "../consts/api.js";
 
 const Search = () => {
+  const [allWord, setAllWords] = useState([]);
+  const [listResult, setListResult] = useState(allWord);
 
-  const [listResult, setListResult] = useState([])
+  const handleGetAllWords = async () => {
+    try {
+      // const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
+      const response = await fetch(`${commonRoute}words`);
 
+      const result = await response.json();
+      setAllWords(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   // handle search input
-  const handleSearch = async (searchTerm) =>{
-      console.log(`Looking for: ${searchTerm}`)
-        try {
-          // const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
-          const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
+  const handleSearch = async (searchTerm) => {
+    if(!searchTerm){
+      setListResult(allWord)
+    }
+    try {
+      // const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
+      const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
 
-          const result = await response.json();
-          setListResult(result.data);
-          console.log(result.data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        } finally {
-          // setLoading(false);
-        }
-  }
-  
+      const result = await response.json();
+      setListResult(result.data);
+      console.log(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
   //fetch api
-  useEffect(() =>{
+  useEffect(() => {
     handleSearch();
-  },[])
+    handleGetAllWords();
+  }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-0">
       <div className="m-10">
-        <SearchBar onSearch={handleSearch}/>
+        <SearchBar onSearch={handleSearch} />
       </div>
+
       <div className="flex justify-left items-center h-full">
-          <h2 className="text-sm font-bold ml-10">{listResult.length} Results</h2>
+        <h2 className="text-sm font-bold ml-10">{listResult.length} Results</h2>
       </div>
-      
-      <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">
-        { listResult.map((word,index) => (
-          <Word word = {word}  key = {index} />
+
+      <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto ">
+        {listResult.map((word, index) => (
+          <Word word={word} key={index} />
         ))}
       </div>
-      {listResult.length > 6 ? (
-        <div className='flex justify-center'>
-          <Pagination defaultCurrent={1} total={50} />
-        </div>
-      ) : null}
     </div>
-  )
-}
+  );
+};
 
 export default Search;

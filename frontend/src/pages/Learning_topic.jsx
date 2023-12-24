@@ -40,12 +40,12 @@ const Learning_topic = (topic_detail) => {
             School
           </h1>
         </div>
-        <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">
+        <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto">
           { listWords.map((word,index) => (
             <Word word = {word}  key = {index} />
           ))}
         </div>
-        <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div>
+        {/* <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div> */}
     </div>
   )
 }

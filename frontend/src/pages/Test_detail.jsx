@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
+import { test } from "../consts/tests.js";
 const Test_detail = () => {
   const navigate = useNavigate();
   const backAction = () => {
     navigate(-1);
   };
+
+  // Get a random index
+  const randomIndex = Math.floor(Math.random() * test.length);
+
+  // Get the random element from the array
+  const randomElement = test[randomIndex];
 
   useEffect(() => {
     // Tạo động script để tải Quiz Maker
@@ -48,12 +54,12 @@ const Test_detail = () => {
       </button>
       <div className="w-full h-full p-10 rounded ">
         <a
-          data-quiz="QQUDJPHEX"
+          data-quiz= {randomElement.data_quiz}
           data-type="4"
           data-height="100%"
           //   data-fullscreen="true"
           //href="https://take.quiz-maker.com/Q850YR2J4"  Q850YR2J4
-          href="https://take.quiz-maker.com/QQUDJPHEX"
+          href= {randomElement.url}
         >
           Loading...
         </a>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import commonRoute from "../consts/api";
+import commonRoute from "../consts/api.js";
 import { useNavigate, useParams } from "react-router-dom";
 
 const Signup = () => {

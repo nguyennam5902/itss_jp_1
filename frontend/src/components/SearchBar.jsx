@@ -1,6 +1,7 @@
 import React,{useState, userState} from 'react'
 import Select from 'react-select';
-import icons from '../consts/const';
+import icons from '../consts/const.js';
+
 const SearchBar = ({onSearch}) => {
   const options = [
     { value: 'option1', label: 'School' },
@@ -39,12 +40,12 @@ const SearchBar = ({onSearch}) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <Select
+      {/* <Select
         options={options}
         // src = {SearchIcon}
         // placeholder=""
         className="ml-1"
-      />
+      /> */}
     </div>
    
   );
