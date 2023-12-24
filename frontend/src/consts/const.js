@@ -9,6 +9,8 @@ import AddButton from '../assets/icons/plus.png'
 import Avatar from '../assets/images/avatar.png'
 import Notification from '../assets/icons/notification.png'
 import BookmarkIcon from '../assets/icons/bookmark.png';
+import Logo from '../assets/icons/logo.png';
+
 const icons = {
   SearchIcon,
   ReviewIcon,
@@ -20,7 +22,8 @@ const icons = {
   AddButton,
   Avatar,
   Notification,
-  BookmarkIcon
+  BookmarkIcon,
+  Logo
 };
 
 export const images = {

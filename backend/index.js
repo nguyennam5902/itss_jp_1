@@ -107,29 +107,29 @@ app.get("/api/bookmark/:user", async (req, res) => {
     });
   }
 });
-app.post('/api/bookmark', async (req, res) => {
-   let user = req.body.user;
-   let wordID = req.body.wordID;
-   const bookmark = await Bookmark.findOne({ user_id: user }).exec();
-   if (!bookmark) return res.status(401).send();
-   else {
-      //  // Check if wordID already exists in vocab_marked
-      // if (bookmark.vocab_marked.includes(wordID)) {
-      //    return res.status(400).send({
-      //    data: null,
-      //    status: 400,
-      //    message: 'Word is already bookmarked.',
-      //    });
-      // }
-      bookmark.vocab_marked.push(new mongoose.Types.ObjectId(wordID));
-      bookmark.save().then(console.log('ADDED'));
-      res.send({
-         data: null,
-         status: 200,
-         message: 'OK'
-      });
-   }
-})
+app.post("/api/bookmark", async (req, res) => {
+  let user = req.body.user;
+  let wordID = req.body.wordID;
+  const bookmark = await Bookmark.findOne({ user_id: user }).exec();
+  if (!bookmark) return res.status(401).send();
+  else {
+    //  // Check if wordID already exists in vocab_marked
+    // if (bookmark.vocab_marked.includes(wordID)) {
+    //    return res.status(400).send({
+    //    data: null,
+    //    status: 400,
+    //    message: 'Word is already bookmarked.',
+    //    });
+    // }
+    bookmark.vocab_marked.push(new mongoose.Types.ObjectId(wordID));
+    bookmark.save().then(console.log("ADDED"));
+    res.send({
+      data: null,
+      status: 200,
+      message: "OK",
+    });
+  }
+});
 // app.delete('/api/bookmark/:user/:wordID', async (req, res) => {
 //    let user = req.params.user;
 //    let wordID = req.params.wordID;
@@ -309,6 +309,35 @@ app.put("/api/admin/word/:wordID/comments/:commentID", async (req, res) => {
     message: "OK",
   });
 });
+
+app.get("/api/admin/comments", async (req, res) => {
+  comments = [];
+  const word = await Vocab.find().exec();
+  for (let i = 0; i < word.length; i++) {
+    for (j = 0; j < word[i].comments.length; j++) {
+      if (
+        word[i].comments[j].is_accept == false &&
+        word[i].comments[j].user_id != null
+      //   word[i].kanji != ""
+      ) {
+        const comment = {
+          ...word[i].comments[j].toObject(), // Copy existing properties from words[i].comments[j]
+          kanji: word[i].kanji,
+          hiragana: word[i].hiragana,
+          word_id : word[i]._id
+        };
+
+        comments.push(comment);
+      }
+    }
+  }
+  res.send({
+    data: comments,
+    status: 200,
+    message: "OK",
+  });
+});
+
 app.get("api/test/history/:user_id", async (req, res) => {
   const user_id = req.params.user_id;
   const test = await Test.find({

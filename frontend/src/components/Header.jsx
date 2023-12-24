@@ -17,21 +17,31 @@ const Header = ({ children }) => {
     },
   ];
 
+  let menuItem2 = [];
   // khi da dang nhap
-  const menuItem2 = [
-    {
-      path: "/userInfo",
-      name: user.username,
-    },
-    {
-      path: "/notification",
-      name: "",
-    },
-    {
-      path: "/bookmark",
-      name: "",
-    },
-  ];
+  if (user && user.username == "admin") {
+    menuItem2 = [
+      {
+        path: "/userInfo",
+        name: user.username,
+      },
+    ];
+  } else {
+    menuItem2 = [
+      {
+        path: "/userInfo",
+        name: user.username,
+      },
+      {
+        path: "/notification",
+        name: "",
+      },
+      {
+        path: "/bookmark",
+        name: "",
+      },
+    ];
+  }
 
   useEffect(() => {}, []);
 
