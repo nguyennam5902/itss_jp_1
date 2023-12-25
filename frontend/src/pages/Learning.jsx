@@ -53,7 +53,7 @@ const Learning = () => {
           <h2 className="font-bold text-center text-[20px]">
             Most recently
             <Tag className="ml-2" color="#108ee9">
-              3
+            {topics.slice(0, 3).length}
             </Tag>
           </h2>
           <div className="bg-white h-[60vh] w-[300px] m-4 rounded-md shadow-lg border border-gray-100 overflow-y-auto">
@@ -66,7 +66,7 @@ const Learning = () => {
           <h2 className="font-bold text-center text-[20px]">
             In progress
             <Tag className="ml-2" color="#f50">
-              2
+            {topics.slice(3,5).length}
             </Tag>
           </h2>
           <div className="bg-white h-[60vh] w-[300px] m-4 rounded-md shadow-lg border border-gray-100 overflow-y-auto ">
@@ -79,7 +79,7 @@ const Learning = () => {
           <h2 className="font-bold text-center text-[20px]">
             Finished
             <Tag className="ml-2" color="#87d068">
-              1
+              {topics.slice(5).length}
             </Tag>
           </h2>
           <div className="bg-white h-[60vh] w-[300px] m-4 rounded-md overflow-y-auto shadow-lg border border-gray-100">

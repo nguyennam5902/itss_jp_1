@@ -137,7 +137,7 @@ const Word = () => {
   },[])
 
   return (
-      <div className="w-full">
+      <div className="w-full ">
          <button className="bg-neutral-200 font-bold py-2 px-4 rounded text-sm ml-5 mt-5" onClick={backAction}>
             Back
         </button>
@@ -150,7 +150,7 @@ const Word = () => {
         <div className="flex justify-left items-center h-full">
             <h2 className="text-sm font-bold ml-10">{listWords.length} Words</h2>
         </div>
-        <div className="m-10 justify-center content-center overflow-x-auto">
+        <div className="m-10 justify-center content-center h-full overflow-y-auto overflow-x-auto">
           <Table dataSource={listWords} columns={columns} pagination = {false} />
           <EditWordForm editWord={editWord} visible = {visible} handleCreate={handleCreate} handleCancel = {handleCancel}/>
         </div>

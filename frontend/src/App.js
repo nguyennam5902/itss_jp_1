@@ -18,8 +18,9 @@ const MainScreen = () => {
   return (
     <div className="main_screen">
       <Sidebar>
-        <div className="content h-full">
+        <div className="content h-full ">
           <Header />
+
           <Outlet />
         </div>
       </Sidebar>

@@ -170,14 +170,14 @@ const Vocabulary = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="m-10 flex rounded-2xl justify-center items-center">
         <h1 className="text-2xl font-bold">List of topics</h1>
       </div>
       <div className="flex justify-left items-center h-full">
         <h2 className="text-sm font-bold ml-10">{topics.length} Topics</h2>
       </div>
-      <div className="m-10 justify-center content-center overflow-x-auto">
+      <div className="m-10 justify-center content-center h-full overflow-x-auto">
         <Table
           dataSource={topics}
           columns={columns}

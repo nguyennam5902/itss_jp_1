@@ -44,7 +44,7 @@ const Learning_topic = (topic_detail) => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <div>
         <img src="./assets/icons/home.png" alt=""></img>
       </div>
@@ -54,17 +54,12 @@ const Learning_topic = (topic_detail) => {
       >
         Back
       </button>
-      <div className="m-10 flex rounded-2xl justify-center items-center">
-        {/* <h1 className="text-2xl font-bold">
-            School
-          </h1> */}
-      </div>
-      <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto">
+
+      <div className="grid grid-cols-2 gap-4 m-4 p-4 h-full overflow-y-auto">
         {listWords.map((word, index) => (
           <Word word={word} listWords={listBookmark} key={index} />
         ))}
       </div>
-      {/* <div className="font-bold text-red-500 text-sm">Completed percentage: 80%</div> */}
     </div>
   );
 };
