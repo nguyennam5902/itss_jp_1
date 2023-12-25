@@ -318,19 +318,47 @@ app.get("/api/admin/comments", async (req, res) => {
       if (
         word[i].comments[j].is_accept == false &&
         word[i].comments[j].user_id != null
-      //   word[i].kanji != ""
+        //   word[i].kanji != ""
       ) {
         const comment = {
           ...word[i].comments[j].toObject(), // Copy existing properties from words[i].comments[j]
           kanji: word[i].kanji,
           hiragana: word[i].hiragana,
-          word_id : word[i]._id
+          word_id: word[i]._id,
         };
 
         comments.push(comment);
       }
     }
   }
+  res.send({
+    data: comments,
+    status: 200,
+    message: "OK",
+  });
+});
+
+app.get("/api/vocab/:wordID/comments", async (req, res) => {
+  comments = [];
+  const wordID = req.params.wordID;
+  const word = await Vocab.findById(wordID).exec();
+
+  for (j = 0; j < word.comments.length; j++) {
+    if (
+      word.comments[j].is_accept == true &&
+      word.comments[j].user_id != null
+      //   word[i].kanji != ""
+    ) {
+      const user = await User.findById(word.comments[j].user_id).exec();
+      const comment = {
+        ...word.comments[j].toObject(), // Copy existing properties from words[i].comments[j]
+        user: user.username,
+      };
+
+      comments.push(comment);
+    }
+  }
+
   res.send({
     data: comments,
     status: 200,
