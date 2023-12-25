@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Word from "../components/Word";
 import image from "../assets/images/word_image.png";
 import RelatedWords from "../components/RelatedWords";
 import Comment from "../components/Comment";
@@ -44,15 +43,8 @@ const Word_detail = () => {
   const { id } = useParams(); // get wordId
   const [word, setWordDetail] = useState(word_detail_default);
   const [comments, setComments] = useState(comments_default);
-  const [topic, setTopic] = useState("");
-  // const [isClicked, setIsClicked] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [listBookmark, setListBookmark] = useState([]);
-
-  // const bookmarkTapped = () => {
-  //   setIsClicked(!isClicked);
-  //   console.log(isClicked);
-  // };
 
   const getListBookmark = async () => {
     console.log(user);
@@ -101,7 +93,7 @@ const Word_detail = () => {
       const result = await response.json();
       console.log(response);
       setWordDetail(result);
-      setComments(result.comments);
+      // setComments(result.comments);
       console.log(result);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -161,9 +153,19 @@ const Word_detail = () => {
       });
       const result = await response.json();
       console.log(result);
-      setComments(result.comments);
+      // setComments(result.comments);
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const getComments = async (id) => {
+    try {
+      const response = await fetch(`${commonRoute}vocab/${id}/comments`);
+      const result = await response.json();
+      setComments(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -172,6 +174,7 @@ const Word_detail = () => {
     handleGetWord(id);
     checkIsBookmark();
     getListBookmark();
+    getComments(id);
     // handleAddComment();
     // handleGetTopic(word.topic_id)
   }, [id, newComment]);
@@ -188,7 +191,7 @@ const Word_detail = () => {
       <div className="flex mt-5 mr-10 ml-10 overflow-x-auto">
         <div className="flex flex-grow w-2/3 mt-2 mr-2 ml-2 mb-4 rounded-[10px] shadow-lg border border-gray-100">
           <div className="flex-grow m-5 w-3/5">
-            {word.kanji != "" ? (
+            {word.kanji !== "" ? (
               <h3 className="font-bold text-[20px]">
                 {word.kanji} ({word.hiragana})
               </h3>

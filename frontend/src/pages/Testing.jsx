@@ -4,7 +4,6 @@ import commonRoute from "../consts/api.js";
 import Test from "../components/Test.jsx";
 const Testing = (topic_detail) => {
   const navigate = useNavigate();
-
   const [topics, setTopics] = useState([]);
 
   const allTopics = async () => {
@@ -41,7 +40,6 @@ const Testing = (topic_detail) => {
     };
 
     fetchData();
-    //handleSearchTopic();
   }, []);
 
   return (

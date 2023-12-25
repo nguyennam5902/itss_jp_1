@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Word from "../components/Word.jsx";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import commonRoute from "../consts/api.js";
 // import { getListBookmark } from "../components/listBookmark.js";
 const Bookmark = () => {

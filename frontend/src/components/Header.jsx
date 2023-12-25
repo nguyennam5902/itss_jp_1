@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "../App.css";
 import icons from "../consts/const.js";
 
-const Header = ({ children }) => {
+const Header = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   // chua dang nhap
   const menuItem1 = [
@@ -19,7 +19,7 @@ const Header = ({ children }) => {
 
   let menuItem2 = [];
   // khi da dang nhap
-  if (user && user.username == "admin") {
+  if (user && user.username === "admin") {
     menuItem2 = [
       {
         path: "/userInfo",

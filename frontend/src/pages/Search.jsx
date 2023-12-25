@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar.jsx";
 import Word from "../components/Word.jsx";
-import { Pagination } from "antd";
 import commonRoute from "../consts/api.js";
 
 const Search = () => {
@@ -69,7 +68,7 @@ const Search = () => {
 
       <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto ">
         {listResult.map((word, index) => (
-          <Word word={word} listWords = {listBookmark} key={index} />
+          <Word word={word} listWords={listBookmark} key={index} />
         ))}
       </div>
     </div>

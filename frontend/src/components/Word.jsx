@@ -120,29 +120,31 @@ const Word = ({ word, listWords }) => {
         </div>
       </div>
 
-      <div className="flex justify-between m-2">
-        {isBookmarked ? (
-          <button
-            className="flex-left fit-content bg-gray-200 shadow-lg rounded-md active:bg-orange-200"
-            onClick={handleUnBookmark}
-          >
-            <p className="text-left font-bold ml-2 text-sm">
-              - Remove from list of favorite words
-            </p>
-          </button>
-        ) : (
-          <button
-            className="flex-left fit-content bg-orange-200 shadow-lg rounded-md active:bg-gray-200"
-            onClick={handleBookmark}
-          >
-            <p className="text-left font-bold ml-2 text-sm">
-              + Add to your favorite words
-            </p>
-          </button>
-        )}
+      {user.username !== "admin" && (
+        <div className="flex justify-between m-2">
+          {isBookmarked ? (
+            <button
+              className="flex-left fit-content bg-gray-200 shadow-lg rounded-md active:bg-orange-200"
+              onClick={handleUnBookmark}
+            >
+              <p className="text-left font-bold ml-2 text-sm">
+                - Remove from list of favorite words
+              </p>
+            </button>
+          ) : (
+            <button
+              className="flex-left fit-content bg-orange-200 shadow-lg rounded-md active:bg-gray-200"
+              onClick={handleBookmark}
+            >
+              <p className="text-left font-bold ml-2 text-sm">
+                + Add to your favorite words
+              </p>
+            </button>
+          )}
 
-        <h2 className="flex text-right text-red-500 font-bold">Seen</h2>
-      </div>
+          <h2 className="flex text-right text-red-500 font-bold">Seen</h2>
+        </div>
+      )}
     </div>
   );
 };
