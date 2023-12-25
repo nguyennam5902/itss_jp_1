@@ -36,9 +36,9 @@ const Learning_topic = (topic_detail) => {
             Back
         </button>
         <div className = "m-10 flex rounded-2xl justify-center items-center">
-          <h1 className="text-2xl font-bold">
+          {/* <h1 className="text-2xl font-bold">
             School
-          </h1>
+          </h1> */}
         </div>
         <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto">
           { listWords.map((word,index) => (
