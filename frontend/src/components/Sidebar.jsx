@@ -46,16 +46,14 @@ const Sidebar = ({children}) => {
   return (
     <div className="main_screen">
       <div className="sidebar">
-        <div className="top_section">
-          <h1 className="logo">Logo</h1>
-        </div>
-        <div className="user_info">
-          <h3 className= "user_name">Username</h3>
+        <div className="top_section justify-center">
+          <img src={icons.Logo} className='rounded-[40px] h-20 w-20' alt = ""/>
+  
         </div>
         
         {isAdminRoute === true
           ? (adminMenuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
+              <NavLink to={item.path} key = {index} className = "link" activeclassname = "active">
                   <div className = "icon">
                     <img src={item.icon} alt="" />
                   </div>
@@ -65,7 +63,7 @@ const Sidebar = ({children}) => {
             )  
           : (
             menuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
+              <NavLink to={item.path} key = {index} className = "link" activeclassname = "active">
                   <div className = "icon">
                     <img src={item.icon} alt="" />
                   </div>

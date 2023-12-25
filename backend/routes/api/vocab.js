@@ -25,9 +25,9 @@ router.post('/vocab/:id/comments', async (req, res) => {
         const { user_id, comment_text } = req.body;
         vocab.comments.push({ user_id, comment_text, is_accept: false });
         await vocab.save();
-        res.status(201).json(vocab);
+        res.status(200).json(vocab);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(400).json({ message: err.message });
     }
 });
 

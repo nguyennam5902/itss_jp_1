@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import commonRoute from "../consts/api";
-import { useNavigate, useParams } from "react-router-dom";
+import commonRoute from "../consts/api.js";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -22,14 +22,11 @@ const Signup = () => {
         body: JSON.stringify(userInfo),
       });
       const result = await response.json();
-      if (result.data.status == 200) {
+      if (result.status === 200) {
         sessionStorage.setItem('user', JSON.stringify(result.data));
         console.log(JSON.parse(sessionStorage.getItem('user'))); 
-        navigate(`/`);
-      } else {
-        const errorData = await response.json();
-        console.error(errorData);
-      }
+        navigate("/");
+      } 
     } catch (error) {
       console.error("Error:", error);
     }

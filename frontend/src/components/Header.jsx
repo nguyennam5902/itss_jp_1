@@ -1,9 +1,10 @@
 import React, { Children, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../App.css";
+import icons from "../consts/const.js";
 
-const Header = ({ children }) => {
-  const user = sessionStorage.getItem('user')
+const Header = () => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
   // chua dang nhap
   const menuItem1 = [
     {
@@ -16,60 +17,88 @@ const Header = ({ children }) => {
     },
   ];
 
+  let menuItem2 = [];
   // khi da dang nhap
-  const menuItem2 = [
-    {
-      path: "/userInfo",
-      name: "User Info",
-    },
-    {
-      path: "/logout",
-      name: "Log out",
-    },
-    {
-      path: "/notification",
-      name: "Notification",
-    },
-    {
-      path: "/bookmark",
-      name: "Bookmark",
-    },
-  ];
+  if (user && user.username === "admin") {
+    menuItem2 = [
+      {
+        path: "/userInfo",
+        name: user.username,
+      },
+    ];
+  } else {
+    menuItem2 = [
+      {
+        path: "/userInfo",
+        name: user.username,
+      },
+      {
+        path: "/notification",
+        name: "",
+      },
+      {
+        path: "/bookmark",
+        name: "",
+      },
+    ];
+  }
 
-  useEffect(() =>{
-  },[]);
+  useEffect(() => {}, []);
 
   return (
     <div className="header_container">
       <div className="header w-full">
-        {user ?
-        menuItem2.map((item, index) => (
-          <NavLink
-            to={item.path}
-            key={index}
-            className="header_link"
-            activeClassName="active"
-          >
-            <div className="notification">
-              {/* <img src={item.icon} alt="" /> */}
-              {item.name}
-            </div>
-          </NavLink>
-        ))
-        : menuItem1.map((item, index) => (
-          <NavLink
-            to={item.path}
-            key={index}
-            className="header_link"
-            activeClassName="active"
-          >
-            <div className="notification">
-              {/* <img src={item.icon} alt="" /> */}
-              {item.name}
-            </div>
-          </NavLink>
-        ))
-      }
+        {user
+          ? menuItem2.map((item, index) => (
+              <NavLink
+                to={item.path}
+                key={index}
+                className="header_link"
+                activeclassname="active"
+              >
+                <div className="notification flex items-center">
+                  <span className="item-name mr-2">{item.name}</span>
+                  {index === 0 && (
+                    <img
+                      src={icons.Avatar}
+                      alt=""
+                      className="w-8 h-8 rounded-full"
+                    />
+                  )}
+                  {index === 1 && (
+                    <button>
+                      <img
+                        src={icons.Notification}
+                        alt=""
+                        className="mt-1 w-6 h-6"
+                      />
+                    </button>
+                  )}
+                  {index === 2 && (
+                    <button>
+                      <img
+                        src={icons.BookmarkIcon}
+                        alt=""
+                        className="mt-1 w-6 h-6"
+                      />
+                    </button>
+                  )}
+                </div>
+              </NavLink>
+            ))
+          : menuItem1.map((item, index) => (
+              <NavLink
+                to={item.path}
+                key={index}
+                className="header_link"
+                activeclassname="active"
+              >
+                <div className="notification">
+                  {/* <img src={item.icon} alt="" /> */}
+                  {item.name}
+                </div>
+              </NavLink>
+            ))}
       </div>
       {/* <main>{children}</main> */}
     </div>

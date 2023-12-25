@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import commonRoute from "../consts/api";
-import Test from "../components/Test";
+import commonRoute from "../consts/api.js";
+import Test from "../components/Test.jsx";
 const Testing = (topic_detail) => {
   const navigate = useNavigate();
-
   const [topics, setTopics] = useState([]);
 
   const allTopics = async () => {
@@ -41,7 +40,6 @@ const Testing = (topic_detail) => {
     };
 
     fetchData();
-    //handleSearchTopic();
   }, []);
 
   return (
@@ -49,16 +47,10 @@ const Testing = (topic_detail) => {
       <div>
         <img src="./assets/icons/home.png" alt=""></img>
       </div>
-      {/* <button
-        className="bg-neutral-200 font-bold py-2 px-4 rounded text-sm ml-5 mt-5"
-        onClick={backAction}
-      >
-        Back
-      </button> */}
       <div className="m-10 flex rounded-2xl justify-center items-center">
         <h1 className="text-2xl font-bold">Choose one Test</h1>
       </div>
-      <div className="grid grid-cols-3 gap-4 m-4 p-2 overflow-x-auto">
+      <div className="grid grid-cols-3 gap-4 m-4 p-2 overflow-x-auto overflow-y-auto">
         {topics.map((topic, index) => (
           <Test topic={topic} key={index} />
         ))}
