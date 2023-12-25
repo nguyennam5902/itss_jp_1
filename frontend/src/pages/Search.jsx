@@ -7,6 +7,8 @@ import commonRoute from "../consts/api.js";
 const Search = () => {
   const [allWord, setAllWords] = useState([]);
   const [listResult, setListResult] = useState(allWord);
+  const [listBookmark, setListBookmark] = useState([]);
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const handleGetAllWords = async () => {
     try {
@@ -21,8 +23,8 @@ const Search = () => {
   };
   // handle search input
   const handleSearch = async (searchTerm) => {
-    if(!searchTerm){
-      setListResult(allWord)
+    if (!searchTerm) {
+      setListResult(allWord);
     }
     try {
       // const response = await fetch(`${commonRoute}search/word/${searchTerm}`);
@@ -33,8 +35,18 @@ const Search = () => {
       console.log(result.data);
     } catch (error) {
       console.error("Error fetching data:", error);
-    } finally {
-      // setLoading(false);
+    }
+  };
+
+  const getListBookmark = async () => {
+    console.log(user);
+    try {
+      const response = await fetch(`${commonRoute}bookmark/${user._id}`);
+      const result = await response.json();
+      // return result.data || []
+      setListBookmark(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -42,6 +54,7 @@ const Search = () => {
   useEffect(() => {
     handleSearch();
     handleGetAllWords();
+    getListBookmark();
   }, []);
 
   return (
@@ -56,7 +69,7 @@ const Search = () => {
 
       <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto overflow-y-auto ">
         {listResult.map((word, index) => (
-          <Word word={word} key={index} />
+          <Word word={word} listWords = {listBookmark} key={index} />
         ))}
       </div>
     </div>

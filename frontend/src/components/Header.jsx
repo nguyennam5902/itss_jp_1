@@ -54,7 +54,7 @@ const Header = ({ children }) => {
                 to={item.path}
                 key={index}
                 className="header_link"
-                activeClassName="active"
+                activeclassname="active"
               >
                 <div className="notification flex items-center">
                   <span className="item-name mr-2">{item.name}</span>
@@ -91,7 +91,7 @@ const Header = ({ children }) => {
                 to={item.path}
                 key={index}
                 className="header_link"
-                activeClassName="active"
+                activeclassname="active"
               >
                 <div className="notification">
                   {/* <img src={item.icon} alt="" /> */}

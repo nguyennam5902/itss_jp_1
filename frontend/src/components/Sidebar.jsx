@@ -53,7 +53,7 @@ const Sidebar = ({children}) => {
         
         {isAdminRoute === true
           ? (adminMenuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
+              <NavLink to={item.path} key = {index} className = "link" activeclassname = "active">
                   <div className = "icon">
                     <img src={item.icon} alt="" />
                   </div>
@@ -63,7 +63,7 @@ const Sidebar = ({children}) => {
             )  
           : (
             menuItem.map((item, index)=>(
-              <NavLink to={item.path} key = {index} className = "link" activeClassName = "active">
+              <NavLink to={item.path} key = {index} className = "link" activeclassname = "active">
                   <div className = "icon">
                     <img src={item.icon} alt="" />
                   </div>

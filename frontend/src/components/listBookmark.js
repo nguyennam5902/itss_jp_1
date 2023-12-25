@@ -2,6 +2,7 @@ import commonRoute from "../consts/api";
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 export const getListBookmark = async() =>{
+  console.log(user)
     try {
       const response = await fetch(`${commonRoute}bookmark/${user._id}`);
 

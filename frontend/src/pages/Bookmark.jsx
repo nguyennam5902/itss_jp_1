@@ -1,39 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Word from "../components/Word.jsx";
 import { useNavigate, useParams } from "react-router-dom";
-// import commonRoute from "../consts/api";
-import { getListBookmark } from "../components/listBookmark.js";
+import commonRoute from "../consts/api.js";
+// import { getListBookmark } from "../components/listBookmark.js";
 const Bookmark = () => {
   const navigate = useNavigate();
   const [listWords, setListWords] = useState([]);
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   const backAction = () => {
     navigate(-1);
   };
 
-  // // handle search input
-  // const handleGetWordBookmark = async () => {
-  //   try {
-  //     const response = await fetch(`${commonRoute}bookmark/${user._id}`);
-
-  //     const result = await response.json();
-  //     setListWords(result.data);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+  const getListBookmark = async () => {
+    try {
+      const response = await fetch(`${commonRoute}bookmark/${user._id}`);
+      const result = await response.json();
+      setListWords(result.data);
+      console.log(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   //fetch api
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getListBookmark();
-        setListWords(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
+    getListBookmark();
   }, []);
 
   return (
@@ -52,7 +44,7 @@ const Bookmark = () => {
       </div>
       <div className="grid grid-cols-2 gap-4 m-4 p-4 overflow-x-auto">
         {listWords.map((word, index) => (
-          <Word word={word} key={index} listWords = {listWords} />
+          <Word word={word} key={index} listWords={listWords} />
         ))}
       </div>
     </div>

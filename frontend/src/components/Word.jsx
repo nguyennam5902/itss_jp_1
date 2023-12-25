@@ -1,46 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import commonRoute from "../consts/api";
 import { getListBookmark } from "./listBookmark";
 
-const Word = ({ word ,listWords}) => {
+const Word = ({ word, listWords }) => {
+  // Function to check if a word is in the list
+  const isWordInList = (word, list) => {
+    return (
+      list &&
+      Array.isArray(list) &&
+      list.some(
+        (listWord) =>
+          listWord?._id === word?._id && listWord?.kanji === word?.kanji
+      )
+    );
+  };
+
+  // Usage in your component
+  const isWordInArray = isWordInList(word, listWords);
+  console.log(isWordInArray);
+
+  const [isBookmarked, setIsBookmarked] = useState(isWordInArray);
+
   const user = JSON.parse(sessionStorage.getItem("user"));
   const navigate = useNavigate();
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  // const [listWords, setListWords] = useState([]);
 
   useEffect(() => {
-    // const fetchListBookmark = async () => {
-    //   try {
-    //     const listBookmark = await getListBookmark(); // Assuming getListBookmark is defined
-    //     setListWords(listBookmark);
-    //   } catch (error) {
-    //     console.error("Error fetching list bookmark:", error);
-    //   }
-    // };
-
     getListBookmark();
     checkIsBookmark();
-    // handleBookmark()
-    // handleUnBookmark()
-  }, [listWords, word]);
-
-  // const checkIsBookmark = async () => {
-  //   try {
-  //     const listWords = await getListBookmark(); // Assuming getListBookmark returns an array of objects
-  //     const isWordInArray = listWords.some((word) => word._id === word._id);
-  //     setIsBookmarked(isWordInArray);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+    // handleBookmark();
+    // handleUnBookmark();
+  }, []);
 
   const checkIsBookmark = () => {
     // Ensure that listWords is defined before calling the some method
     if (listWords && listWords.length > 0) {
       const isWordInArray = listWords.some(
-        (listWord) =>
-          listWord._id === word._id || listWord._hiragana === word.hiragana
+        (listWord) => listWord._id === word._id && listWord.kanji === word.kanji
       );
       setIsBookmarked(isWordInArray);
     } else {
